@@ -142,46 +142,6 @@ function Footer() {
                             </ul>
                         </div>
                     </div>
-                    <div className="col-md-3 col-sm-6 col-xs-12">
-                        <div className="single-widget">
-                            <h3>get in touch</h3>
-                            <p className="lock"></p>
-                            <p>Your address goes here, Street<br />City, Roadno 785 New York</p>
-                            <p>+880  548  986  898  87<br />+880  659  785  658  98</p>
-                            <ul>
-                                <li className="address-section">
-                                    <div className="row">
-                                        <div className="col-md-2 col-sm-2 col-xs-2">
-                                            <i className="fa fa-address-card"></i>
-                                        </div>
-                                        <div className="col-md-10 col-sm-10 col-xs-10 single-widget-description noPadding">
-                                            <span>Primary:Lorem Ipsum Dolar Sıt</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li className="address-section">
-                                    <div className="row">
-                                        <div className="col-md-2 col-sm-2 col-xs-2">
-                                            <i className="fa fa-phone"></i>
-                                        </div>
-                                        <div className="col-md-10 col-sm-10 col-xs-10 single-widget-description noPadding">
-                                            <span>Primary:Lorem Ipsum Dolar Sıt</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li className="address-section">
-                                    <div className="row">
-                                        <div className="col-md-2 col-sm-2 col-xs-2">
-                                            <i className="fa fa-envelope"></i>
-                                        </div>
-                                        <div className="col-md-10 col-sm-10 col-xs-10 single-widget-description noPadding">
-                                            <span>Primary:Lorem Ipsum Dolar Sıt</span>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div className="footer-bottom text-center">

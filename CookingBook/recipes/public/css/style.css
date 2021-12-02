@@ -485,6 +485,12 @@ img.imgback:hover {
   padding-bottom: 30px;
 }
 
+.all-products {
+  display: flex;
+  flex-wrap: wrap;
+    flex-direction: row;
+}
+
 div#news-slider {
     margin-bottom: 50px;
 }
@@ -553,7 +559,14 @@ div#news-slider .owl-next {
   padding: 10px;
 }
 
-.post-slide{margin-left: 10px;margin-right: 10px;background:#fff;box-shadow:0 1px 2px rgba(43,59,93,.3);margin-bottom:2em}
+.post-slide{
+  margin-left: 10px;
+  margin-right: 10px;
+  background:#fff;
+  box-shadow:0 1px 2px rgba(43,59,93,.3);
+  margin-bottom:2em;
+  max-width: 400px;
+}
 .post-slide .post-img{position:relative;margin-bottom:20px}
 .post-slide .post-img img{width:100%;height:auto}
 
@@ -717,12 +730,12 @@ div#news-slider .owl-next {
 #section4{
   padding-top: 30px;
   min-height: 400px;
-  background: transparent;
+  background-image: url("/img/slider/1900x1000.png");
+  /* background: transparent; */
 }
 
 
 #section4 h3{
-
   margin-top: 20px;
   font-weight: 800;
   color: #f9b000;
@@ -1580,6 +1593,11 @@ li.address-section .fa{
 * FOOTER SECTION START
 * ==========================================
 */
+
+.footer-area {
+  border-top: 2px solid gray;
+}
+
 .main-footer {
   padding: 50px;
 }
