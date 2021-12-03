@@ -101,7 +101,7 @@ input {
 
 textarea {
 outline: none;
-border: none;
+
 }
 
 textarea:focus, input:focus {
@@ -660,6 +660,7 @@ div#news-slider .owl-next {
   text-decoration: none;
 }
 
+
 /* Change navbar styling on scroll */
 
 .navbar.active .nav-link {
@@ -1123,8 +1124,8 @@ div#news-slider .owl-next {
   
   .label-input100 {
     font-family: "Roboto";
-    font-size: 15px;
-    color: #999999;
+    font-size: 20px;
+    color: black;
     line-height: 1.5;
     padding-left: 5px;
   }
@@ -1187,8 +1188,21 @@ div#news-slider .owl-next {
   .has-val.input100 + .focus-input100::before {
     width: 100%;
   }
-  
-  
+ 
+  .ingredients {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+
+  .add-ingredient {
+    padding: 12px;
+    border-radius: 19px;
+    background-color: rgb(248, 176, 0);
+    color: white;
+    display: flex;
+    margin: 0 auto;
+  }
 
   .container-contact100-form-btn {
     width: 100%;

@@ -9,7 +9,8 @@ import Home from "./components/Home/Home";
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import All from './components/All/All';
-import About from './components/About/About'
+import About from './components/About/About';
+import Create from './components/CreateRecipe/Create';
 
 function App() {
   const [user, setUser] = useState({ isAuthenticated: false, username: '' });
@@ -40,6 +41,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login onLogin={onLogin}/>} />
           <Route path="/register" element={<Register />} />
+          <Route path="/create" element={<Create />} />
         </Routes>
       </main>
       <Footer />
