@@ -1,6 +1,24 @@
-function Login() {
+import { useNavigate } from 'react-router-dom';
+import * as authService from '../../services/authServices';
+
+function Login({
+    onLogin
+}) {
+    const navigate = useNavigate();
+
+    const onLoginHandler = (e) => {
+        e.preventDefault(); 
+
+        let formData = new FormData(e.currentTarget);
+        let email = formData.get('email');
+
+        authService.login(email);
+        onLogin(email);
+        navigate('/');
+    };
+
     return (
-        <form className="contact100-form validate-form">
+        <form className="contact100-form validate-form" onSubmit={onLoginHandler}>
             <div className="wrap-input100 rs1-wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
                 <span className="label-input100">Email</span>
                 <input className="input100" type="text" name="email" placeholder="Enter your email addess" />
@@ -19,11 +37,6 @@ function Login() {
                         Submit
                     </span>
                 </button>
-            </div>
-
-            <div className="container-contact100-form-btn response">
-                <p className="error">
-                </p>
             </div>
         </form>
     );

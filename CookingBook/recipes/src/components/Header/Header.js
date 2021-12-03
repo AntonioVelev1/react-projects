@@ -1,6 +1,24 @@
 import { Link } from 'react-router-dom';
 
-function Header() {
+function Header({
+    isAuthenticated,
+    username,
+}) {
+
+    let guestNavigation = (
+        <>
+            <li className="nav-item"><Link to="/login" className="nav-link text-uppercase font-weight-bold js-scroll-trigger">Login</Link></li>
+            <li className="nav-item"><Link to="/register" className="nav-link text-uppercase font-weight-bold js-scroll-trigger">Register</Link></li>
+        </>
+    );
+
+    let userNavigation = (
+        <>
+            <li className="nav-item"><Link to="/all" className="nav-link text-uppercase font-weight-bold js-scroll-trigger">Recipes</Link></li>
+            <li className="nav-item"><Link to="/logout" className="nav-link text-uppercase font-weight-bold js-scroll-trigger">Logout</Link></li>
+        </>
+    );
+
     return (
         <header className="top">
             <div className="fixedArea">
@@ -35,11 +53,13 @@ function Header() {
                                         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                             <ul className="nav navbar-nav navbar-right navBar">
                                                 <li className="nav-item"><Link to="/" className="nav-link text-uppercase font-weight-bold js-scroll-trigger">Home</Link></li>
-                                                <li className="nav-item"><Link to="/all" className="nav-link text-uppercase font-weight-bold js-scroll-trigger">Recipes</Link></li>
                                                 <li className="nav-item"><Link to="/about" className="nav-link text-uppercase font-weight-bold js-scroll-trigger">About</Link></li>
-                                                <li className="nav-item"><Link to="/login" className="nav-link text-uppercase font-weight-bold js-scroll-trigger">Login</Link></li>
-                                                <li className="nav-item"><Link to="/register" className="nav-link text-uppercase font-weight-bold js-scroll-trigger">Register</Link></li>
-                                                <li className="nav-item"><Link to="/logout" className="nav-link text-uppercase font-weight-bold js-scroll-trigger">Logout</Link></li>
+
+                                                {isAuthenticated
+                                                    ? userNavigation
+                                                    : guestNavigation
+                                                }
+
                                             </ul>
                                         </div>
                                     </div>

@@ -32,11 +32,6 @@ function Register() {
                     </span>
                 </button>
             </div>
-
-            <div className="container-contact100-form-btn response">
-                <p className="error">
-                </p>
-            </div>
         </form>
     );
 }
