@@ -1,6 +1,19 @@
+import { useEffect, useState } from 'react';
+import RecipeCard from "../RecipeCard/RecipeCard";
+import * as recipeService from '../../services/recipeService';
+
 function All() {
-    return (
-      <section id="section3">
+  const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+    recipeService.getAll()
+      .then(result => {
+        setRecipes(result);
+      })
+  }, []);
+
+  return (
+    <section id="section3">
       <div className="container">
 
         <div className="row">
@@ -15,59 +28,16 @@ function All() {
           <div className="container">
             <div className="col-md-12 noPadding">
               <div id="news-slider" className="news-slider all-products">
-                <div className="post-slide">
-                  <div className="post-img">
-                    <div className="post-abs"><p>Progresso İtalian Style</p></div>
-                    <img src="./img/new/cake1.jpg" alt="" />
-                  </div>
-                  <h3 className="post-title"><a href="#">Progresso İtalian Style</a></h3>
-                  <p className="post-description">
-                    12$
-                  </p>
-                </div>
 
-                <div className="post-slide">
-                  <div className="post-img">
-                    <div className="post-abs"><p>Progresso İtalian Style</p></div>
-                    <img src="./img/new/cake2.jpg" alt="" />
+                {recipes.map(x => <RecipeCard key="{x._id}" />)}
 
-                  </div>
-                  <h3 className="post-title"><a href="#">Progresso İtalian Style</a></h3>
-                  <p className="post-description">
-                    12$
-                  </p>
-                </div>
-
-                <div className="post-slide">
-                  <div className="post-img">
-                    <div className="post-abs"><p>Progresso İtalian Style</p></div>
-                    <img src="./img/new/productnew.png" alt="" />
-
-                  </div>
-                  <h3 className="post-title"><a href="#">Progresso İtalian Style</a></h3>
-                  <p className="post-description">
-                    12$
-                  </p>
-                </div>
-
-                <div className="post-slide">
-                  <div className="post-img">
-                    <div className="post-abs"><p>Progresso İtalian Style</p></div>
-                    <img src="./img/new/productnew.png" alt="" />
-
-                  </div>
-                  <h3 className="post-title"><a href="#">Progresso İtalian Style</a></h3>
-                  <p className="post-description">
-                    12$
-                  </p>
-                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
-    );
+  );
 }
 
 export default All;

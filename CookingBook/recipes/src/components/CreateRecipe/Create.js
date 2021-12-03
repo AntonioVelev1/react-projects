@@ -1,7 +1,8 @@
-import IngredientsList from "./IngredientsList";
+import IngredientsList from "../IngredientItem/IngredientsList";
 
 function Create() {
     return (
+        <>
         <form className="contact100-form validate-form">
             <div className="wrap-input100 rs1-wrap-input100 validate-input">
                 <span className="label-input100">Name</span>
@@ -32,6 +33,7 @@ function Create() {
                 </button>
             </div>
         </form>
+        </>
     );
 }
 
