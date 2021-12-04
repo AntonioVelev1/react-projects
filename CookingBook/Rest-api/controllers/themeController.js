@@ -1,5 +1,5 @@
 const { themeModel } = require('../models');
-const { newPost } = require('./postController')
+const { newRecipe } = require('./recipeController')
 
 function getThemes(req, res, next) {
     themeModel.find()
@@ -13,7 +13,7 @@ function getTheme(req, res, next) {
 
     themeModel.findById(themeId)
         .populate({
-            path : 'posts',
+            path : 'recipes',
             populate : {
               path : 'userId'
             }
@@ -28,7 +28,7 @@ function createTheme(req, res, next) {
 
     themeModel.create({ themeName, userId, subscribers: [userId] })
         .then(theme => {
-            newPost(postText, userId, theme._id)
+            newRecipe(postText, userId, theme._id)
                 .then(([_, updatedTheme]) => res.status(200).json(updatedTheme))
         })
         .catch(next);
