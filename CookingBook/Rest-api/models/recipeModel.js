@@ -2,10 +2,28 @@ const mongoose = require('mongoose');
 const { ObjectId } = mongoose.Schema.Types;
 
 const recipeSchema = new mongoose.Schema({
-    text: {
+    name: {
         type: String,
         required: true
     },
+    imageURL: {
+        type: String,
+        require: true
+    },
+    description: {
+        type: String,
+        require: true
+    },
+    ingredients: [{
+        ingredientName: {
+            type: String,
+            require: true
+        },
+        ingredientValue: {
+            type: String,
+            require: true
+        },
+    }],
     likes: [{
         type: ObjectId,
         ref: "User"
@@ -13,10 +31,6 @@ const recipeSchema = new mongoose.Schema({
     userId: {
         type: ObjectId,
         ref: "User"
-    },
-    themeId: {
-        type: ObjectId,
-        ref: "Theme"
     },
 }, { timestamps: { createdAt: 'created_at' } });
 

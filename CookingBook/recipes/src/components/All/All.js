@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import RecipeCard from "../RecipeCard/RecipeCard";
+import RecipeCard from "./RecipeCard/RecipeCard";
 import * as recipeService from '../../services/recipeService';
 
 function All() {
@@ -8,7 +8,8 @@ function All() {
   useEffect(() => {
     recipeService.getAll()
       .then(result => {
-        setRecipes(result);
+        console.log(result);
+        setRecipes(Object.values(result));
       })
   }, []);
 
@@ -29,7 +30,9 @@ function All() {
             <div className="col-md-12 noPadding">
               <div id="news-slider" className="news-slider all-products">
 
-                {recipes.map(x => <RecipeCard key="{x._id}" />)}
+                {recipes.length > 0
+                  ? recipes.map(x => <RecipeCard key= {x._id} recipe={x}/>)
+                  : <p>No recipes in database</p>}
 
               </div>
             </div>

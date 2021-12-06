@@ -10,6 +10,13 @@ function newRecipe(text, userId, themeId) {
         })
 }
 
+function getAll(req, res, next) {
+    recipeModel.find()
+    .populate('userId')
+    .then(recipes => res.json(recipes))
+    .catch(next);
+}
+
 function getLatestsRecipes(req, res, next) {
     const limit = Number(req.query.limit) || 0;
 
@@ -24,13 +31,18 @@ function getLatestsRecipes(req, res, next) {
 }
 
 function createRecipes(req, res, next) {
+    const { name, description, imageURL, ingredients } = req.body;
     const { themeId } = req.params;
-    const { _id: userId } = req.user;
-    const { recipeText } = req.body;
+    //const { _id: userId } = req.user;
 
-    newRecipe(recipeText, userId, themeId)
-        .then(([_, updatedTheme]) => res.status(200).json(updatedTheme))
+    recipeModel.create({ name, description, imageURL, ingredients })
+        .then(recipe => {
+            res.status(200).json(recipe);
+        })
         .catch(next);
+    // newRecipe(recipeText, userId, themeId)
+    //     .then(([_, updatedTheme]) => res.status(200).json(updatedTheme))
+    //     .catch(next);
 }
 
 function editRecipe(req, res, next) {
@@ -83,6 +95,7 @@ function like(req, res, next) {
 
 module.exports = {
     getLatestsRecipes,
+    getAll,
     newRecipe,
     createRecipes,
     editRecipe,

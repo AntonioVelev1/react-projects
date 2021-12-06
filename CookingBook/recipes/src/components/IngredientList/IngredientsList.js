@@ -1,8 +1,11 @@
-import IngredientsItem from "../IngredientList/IngredientsItem";
+import IngredientsItem from "./IngredientItem/IngredientsItem";
 import uniqid from 'uniqid';
 import { useState } from 'react';
 
-function IngredientsList() {
+function IngredientsList({
+    getIngredients,
+    deleteIngredients
+}) {
     const [ingredients, setIngredients] = useState([]);
 
     const addIngredientHandler = function (e) {
@@ -22,18 +25,20 @@ function IngredientsList() {
             ingredientName: ingredientName,
             ingredientValue: ingredientValue,
         };
-
         
         setIngredients(state => [
             ...state,
             newIngredients
         ]);
 
+        getIngredients(newIngredients);
+
         ingredientNameInput.value = '';
         ingredientValueInput.value = '';
     }
 
     const deleteAddedIngredientsHandler = function(e, id) {
+        deleteIngredients(id);
         setIngredients(oldIngredients => oldIngredients.filter(x => x.id !== id));
     }
 

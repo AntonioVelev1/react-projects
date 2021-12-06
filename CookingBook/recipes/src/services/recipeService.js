@@ -1,9 +1,16 @@
-const API_URL = 'https://locallhost/api/recipes';
+const API_URL = 'http://localhost:3030/api/recipes';
 
 export const getAll = () => {
-    return fetch(API_URL)
-    .then(res => res.json)
-    .then(recipes => {
-        console.log(recipes);
+    return fetch(`${API_URL}/all`)
+        .then(res => res.json());
+}
+
+export const create = (recipeData) => {
+    return fetch(`${API_URL}/create`, {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json',
+        },
+        body: JSON.stringify(recipeData)
     });
 }
