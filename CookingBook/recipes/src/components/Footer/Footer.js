@@ -10,10 +10,10 @@ function Footer() {
                         <div className="single-widget pr-60">
                             <div className="footer-logo pb-25">
                                 <div className="col-md-4 noPadding text-center">
-                                    <Link className="" to="/"><img className="img-responsive" src="./img/logo/cemrebakerylogo.png" alt="restorant" /></Link>
+                                    <Link className="" to="/"><img className="img-responsive" src="/img/logo/cemrebakerylogo.png" alt="restorant" /></Link>
                                 </div>
                                 <div className="col-md-8 noPadding logo-text">
-                                    <Link className="" to="/"><img className="img-responsive" src="./img/logo/cemrebakerytextlogo.png" alt="restorant" /></Link>
+                                    <Link className="" to="/"><img className="img-responsive" src="/img/logo/cemrebakerytextlogo.png" alt="restorant" /></Link>
                                     <p className="colorfullText">Fresh Bakery Store</p>
                                 </div>
                             </div>

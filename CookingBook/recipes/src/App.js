@@ -7,6 +7,7 @@ import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import Login from './components/Login/Login';
+import Logout from './components/Logout/Logout';
 import Register from './components/Register/Register';
 import All from './components/All/All';
 import About from './components/About/About';
@@ -31,16 +32,24 @@ function App() {
       user: username
     });
   }
-  
+
+  const onLogout = () => {
+    setUser({
+      isAuthenticated: false,
+      user: null,
+    });
+  }
+
   return (
     <div>
-      <Header { ...user }/>
+      <Header {...user} />
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/all" element={<All />} />
           <Route path="/about" element={<About />} />
-          <Route path="/login" element={<Login onLogin={onLogin}/>} />
+          <Route path="/login" element={<Login onLogin={onLogin} />} />
+          <Route path="/logout" element={<Logout onLogout={onLogout} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/create" element={<Create />} />
           <Route path="/details/:recipeId" element={<RecipeDetails />} />

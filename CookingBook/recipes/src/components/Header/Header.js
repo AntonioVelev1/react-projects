@@ -35,7 +35,7 @@ function Header({
                                                     <div className="row">
                                                         <div className="col-md-3 col-xs-3 col-sm-3">
                                                             <Link className="navbar-brand navBrandText text-uppercase font-weight-bold" to="/">
-                                                                <img src="./img/logo/cemrebakerylogo.png" alt="restorant" />
+                                                                <img src="/img/logo/cemrebakerylogo.png" alt="" />
                                                             </Link>
                                                         </div>
                                                         <div className="col-md-9 col-sm-9 col-xs-9">
