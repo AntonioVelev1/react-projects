@@ -11,6 +11,7 @@ import Register from './components/Register/Register';
 import All from './components/All/All';
 import About from './components/About/About';
 import Create from './components/CreateRecipe/Create';
+import RecipeDetails from './components/RecipeDetails/RecipeDetails';
 
 function App() {
   const [user, setUser] = useState({ isAuthenticated: false, username: '' });
@@ -42,6 +43,7 @@ function App() {
           <Route path="/login" element={<Login onLogin={onLogin}/>} />
           <Route path="/register" element={<Register />} />
           <Route path="/create" element={<Create />} />
+          <Route path="/details/:recipeId" element={<RecipeDetails />} />
         </Routes>
       </main>
       <Footer />

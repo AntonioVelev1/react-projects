@@ -1,3 +1,5 @@
+import {Link} from 'react-router-dom';
+
 function Footer() {
     return (
         <footer className="footer-area">
@@ -8,10 +10,10 @@ function Footer() {
                         <div className="single-widget pr-60">
                             <div className="footer-logo pb-25">
                                 <div className="col-md-4 noPadding text-center">
-                                    <a className="" href="index.html"><img className="img-responsive" src="./img/logo/cemrebakerylogo.png" alt="restorant" /></a>
+                                    <Link className="" to="/"><img className="img-responsive" src="./img/logo/cemrebakerylogo.png" alt="restorant" /></Link>
                                 </div>
                                 <div className="col-md-8 noPadding logo-text">
-                                    <a className="" href="index.html"><img className="img-responsive" src="./img/logo/cemrebakerytextlogo.png" alt="restorant" /></a>
+                                    <Link className="" to="/"><img className="img-responsive" src="./img/logo/cemrebakerytextlogo.png" alt="restorant" /></Link>
                                     <p className="colorfullText">Fresh Bakery Store</p>
                                 </div>
                             </div>

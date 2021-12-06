@@ -17,6 +17,15 @@ function getAll(req, res, next) {
     .catch(next);
 }
 
+function getRecipe(req, res, next) {
+    const recipeId = req.params.recipeId;
+
+    recipeModel.findById(recipeId)
+        .then(recipe => res.json(recipe))
+        .catch(next);
+}
+
+
 function getLatestsRecipes(req, res, next) {
     const limit = Number(req.query.limit) || 0;
 
@@ -96,6 +105,7 @@ function like(req, res, next) {
 module.exports = {
     getLatestsRecipes,
     getAll,
+    getRecipe,
     newRecipe,
     createRecipes,
     editRecipe,

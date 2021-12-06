@@ -1593,6 +1593,56 @@ li.address-section .fa{
 * ==========================================
 */
 
+
+/*
+* ==========================================
+* DETAILS START
+* ==========================================
+*/
+
+.details-page {
+  margin: 50px;
+  padding-bottom: 50px;
+}
+
+.details-content {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+  align-items: stretch;
+}
+
+.details-img {
+  max-width: 600px;
+}
+
+.details-img img {
+  width: 100%;
+}
+
+.details-ingredients {
+  margin: 50px;
+}
+
+.details-ingredients-list li {
+  margin: 10px;
+  font-size: 20px;
+}
+
+.details-description {
+  padding: 0px 30px 0 30px;
+}
+
+.details-description p {
+  font-size: 18px;
+}
+
+/*
+* ==========================================
+* DETAILS ENDS
+* ==========================================
+*/
+
 /*
 * ==========================================
 * INGREDIENTS START

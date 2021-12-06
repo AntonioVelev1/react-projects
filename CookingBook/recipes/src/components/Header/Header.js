@@ -34,10 +34,12 @@ function Header({
                                                 <div className="col-md-9 col-sm-9 col-xs-9">
                                                     <div className="row">
                                                         <div className="col-md-3 col-xs-3 col-sm-3">
-                                                            <a className="navbar-brand navBrandText text-uppercase font-weight-bold" href="index.html"><img src="./img/logo/cemrebakerylogo.png" alt="restorant" /></a>
+                                                            <Link className="navbar-brand navBrandText text-uppercase font-weight-bold" to="/">
+                                                                <img src="./img/logo/cemrebakerylogo.png" alt="restorant" />
+                                                            </Link>
                                                         </div>
                                                         <div className="col-md-9 col-sm-9 col-xs-9">
-                                                            <a className="nav-title" href="index.html">Recipes</a>
+                                                            <Link className="nav-title" to="/">Recipes</Link>
                                                         </div>
                                                     </div>
                                                 </div>

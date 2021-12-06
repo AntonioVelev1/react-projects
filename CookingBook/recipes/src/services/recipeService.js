@@ -14,3 +14,8 @@ export const create = (recipeData) => {
         body: JSON.stringify(recipeData)
     });
 }
+
+export const getOne = (recipeId) => {
+    return fetch(`${API_URL}/details/${recipeId}`)
+        .then(res => res.json());
+}
