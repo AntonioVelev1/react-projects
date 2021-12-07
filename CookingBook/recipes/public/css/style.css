@@ -1637,6 +1637,22 @@ li.address-section .fa{
   font-size: 18px;
 }
 
+.details-edit-btn {
+  padding: 12px;
+  border-radius: 19px;
+  background-color: rgb(248, 176, 0);
+  color: white;
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+  width: 120px;
+}
+
+.details-edit-btn a {
+  color: white;
+
+}
+
 /*
 * ==========================================
 * DETAILS ENDS

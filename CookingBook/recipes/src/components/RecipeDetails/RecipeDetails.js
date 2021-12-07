@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import * as recipeService from '../../services/recipeService';
 
 
@@ -39,6 +39,9 @@ function RecipeDetails() {
                 </section>
                 <div className="text-center details-description">
                     <p>{recipe.description}</p>
+                </div>
+                <div className="details-edit-btn">
+                    <Link to={`/edit/${recipe._id}`}>Edit</Link>
                 </div>
             </section>
         </>
