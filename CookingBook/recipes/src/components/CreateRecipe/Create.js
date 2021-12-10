@@ -1,10 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import IngredientsList from "../IngredientList/IngredientsList";
 import * as recipeService from '../../services/recipeService';
+import { AuthContext } from '../../contexts/AuthContext';
+import { useContext } from 'react';
 
 function Create() {
+    let { user } = useContext(AuthContext)
     const navigate = useNavigate();
     let ingredients = [];
+
+    let userId = user._id;
 
     const createRecipeHandler = (e) => {
         e.preventDefault();
@@ -19,7 +24,8 @@ function Create() {
             name,
             imageURL,
             description,
-            ingredients
+            ingredients,
+            userId,
         })
             .then(result => {
                 navigate('/all');

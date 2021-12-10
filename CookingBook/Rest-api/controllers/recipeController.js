@@ -40,11 +40,9 @@ function getLatestsRecipes(req, res, next) {
 }
 
 function createRecipes(req, res, next) {
-    const { name, description, imageURL, ingredients } = req.body;
-    const { themeId } = req.params;
-    //const { _id: userId } = req.user;
+    const { name, description, imageURL, ingredients, userId } = req.body;
 
-    recipeModel.create({ name, description, imageURL, ingredients })
+    recipeModel.create({ name, description, imageURL, ingredients, userId })
         .then(recipe => {
             res.status(200).json(recipe);
         })

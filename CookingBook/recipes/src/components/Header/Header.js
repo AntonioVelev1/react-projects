@@ -1,10 +1,10 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-function Header({
-    isAuthenticated,
-    user,
-}) {
+import { AuthContext } from '../../contexts/AuthContext';
 
+function Header() {
+    const { user } = useContext(AuthContext);
     let guestNavigation = (
         <>
             <li className="nav-item"><Link to="/login" className="nav-link text-uppercase font-weight-bold js-scroll-trigger">Login</Link></li>
@@ -58,7 +58,7 @@ function Header({
                                                 <li className="nav-item"><Link to="/" className="nav-link text-uppercase font-weight-bold js-scroll-trigger">Home</Link></li>
                                                 <li className="nav-item"><Link to="/about" className="nav-link text-uppercase font-weight-bold js-scroll-trigger">About</Link></li>
 
-                                                {isAuthenticated
+                                                {user.email
                                                     ? userNavigation
                                                     : guestNavigation
                                                 }

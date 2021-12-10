@@ -1,17 +1,64 @@
-export const login = (username) => {
-    localStorage.setItem('username', username);
-};
+const API_URL = 'http://localhost:3030/api/users';
+
+export const login = async (userData) => {
+    let res = await fetch(`${API_URL}/login`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'content-type': 'application/json',
+        },
+        body: JSON.stringify(userData)
+    });
+    // .then(rlt=>  localStorage.setItem('username', rlt.username))
+    // .catch(er => console.log(er.message));
+
+    let result = await res.json();
+
+    if (res.ok) {
+        setLocalStorage(result);
+        return result;
+    }
+
+    throw result.message;
+}
+
+export const register = async (userData) => {
+    let res = await fetch(`${API_URL}/register`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'content-type': 'application/json',
+        },
+        body: JSON.stringify(userData)
+    })
+
+    let result = await res.json();
+
+    if (res.ok) {
+        setLocalStorage(result);
+        return result;
+    }
+
+    throw result.message;
+}
 
 export const logout = () => {
-    localStorage.removeItem('username');
+    return fetch(`${API_URL}/logout`, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            'content-type': 'application/json',
+        }
+    })
+        .then(res => localStorage.removeItem('user'));
 };
 
-export const getUser = () => {
-    let username = localStorage.getItem('username');
-
-    return username;
+export const setLocalStorage = (result) => {
+    let obj = JSON.stringify(result);
+    localStorage.setItem('user', obj);
 };
 
-export const isAuthenticated = () => {
-    return Boolean(getUser());
+export const getLocalStorage = () => {
+    return localStorage.getItem('user');
 };
+

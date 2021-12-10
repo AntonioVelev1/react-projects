@@ -1,6 +1,44 @@
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import * as authService from '../../services/authServices';
+
+import { AuthContext } from '../../contexts/AuthContext';
+
 function Register() {
-    return(
-        <form className="contact100-form validate-form">
+    const { register } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const onRegisterHandler = (e) => {
+        e.preventDefault();
+
+        let formData = new FormData(e.currentTarget);
+        let email = formData.get('email');
+        let username = formData.get('username');
+        let password = formData.get('password');
+        let rePassword = formData.get('rePassword');
+
+        if (password !== rePassword) {
+            console.error('Password don\'t match');
+        }
+
+        authService.register({
+            email,
+            username,
+            password,
+            rePassword
+        })
+            .then((data) => {
+                register(data);
+                navigate('/');
+            })
+            .catch(err => {
+                console.log(err)
+            });
+
+    }
+
+    return (
+        <form className="contact100-form validate-form" onSubmit={onRegisterHandler}>
             <div className="wrap-input100 rs1-wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
                 <span className="label-input100">Username</span>
                 <input className="input100" type="text" name="username" placeholder="Enter your username addess" />

@@ -11,12 +11,14 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: true,
+        unique: false,
+        //todo
     },
     username: {
         type: String,
         required: true,
-        unique: true,
+        //todo
+        unique: false,
         minlength: [5, 'Username should be at least 5 characters'],
         validate: {
             validator: function (v) {

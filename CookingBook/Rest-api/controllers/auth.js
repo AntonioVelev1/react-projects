@@ -13,9 +13,15 @@ const removePassword = (data) => {
 }
 
 function register(req, res, next) {
-    const { tel, email, username, password, repeatPassword } = req.body;
+    const { email, username, password, rePassword } = req.body;
 
-    return userModel.create({ tel, email, username, password })
+    if (password !== rePassword) {
+        res.status(409)
+            .send({ message: `Passwords don't match!` });
+        return;
+    }
+
+    return userModel.create({ email, username, password })
         .then((createdUser) => {
             createdUser = bsonToJson(createdUser);
             createdUser = removePassword(createdUser);
