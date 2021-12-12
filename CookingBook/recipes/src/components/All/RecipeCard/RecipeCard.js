@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 function RecipeCard({
     recipe
 }) {
-    console.log(recipe);
     return (
         <div className="post-slide">
             <div className="post-img">

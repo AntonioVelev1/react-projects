@@ -15,6 +15,7 @@ function Header() {
     let userNavigation = (
         <>
             <li className="nav-item"><Link to="/all" className="nav-link text-uppercase font-weight-bold js-scroll-trigger">Recipes</Link></li>
+            <li className="nav-item"><Link to="/myRecipes" className="nav-link text-uppercase font-weight-bold js-scroll-trigger">My Recipes</Link></li>
             <li className="nav-item"><Link to="/create" className="nav-link text-uppercase font-weight-bold js-scroll-trigger">Create Recipe</Link></li>
             <li className="nav-item"><Link to="/logout" className="nav-link text-uppercase font-weight-bold js-scroll-trigger">Logout</Link></li>
         </>

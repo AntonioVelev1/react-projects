@@ -19,7 +19,6 @@ function Create() {
         let imageURL = formData.get('imageURL');
         let description = formData.get('description');
 
-        console.log(ingredients);
         recipeService.create({
             name,
             imageURL,

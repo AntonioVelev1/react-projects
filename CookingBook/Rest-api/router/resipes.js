@@ -7,7 +7,10 @@ const { recipeController } = require('../controllers');
 
 router.get('/', recipeController.getLatestsRecipes);
 router.get('/all', recipeController.getAll);
+router.post('/myRecipes', recipeController.getMyRcipes);
 router.post('/create', recipeController.createRecipes);
+router.put('/edit/:recipeId', recipeController.editRecipe);
 router.get('/details/:recipeId', recipeController.getRecipe);
+router.delete('/delete/:recipeId', recipeController.deleteRecipe);
 
 module.exports = router

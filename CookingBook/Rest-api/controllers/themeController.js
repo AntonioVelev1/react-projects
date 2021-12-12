@@ -3,7 +3,7 @@ const { newRecipe } = require('./recipeController')
 
 function getThemes(req, res, next) {
     themeModel.find()
-        .populate('userId')
+        //.populate('userId')
         .then(themes => res.json(themes))
         .catch(next);
 }

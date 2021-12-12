@@ -32,7 +32,6 @@ function App() {
   },[]);
  
   const login = (data) => {
-    console.log(data);
     setUser(data);
   }
 
@@ -55,6 +54,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/all" element={<All />} />
+            <Route path="/myRecipes" element={<All />} />
             <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />

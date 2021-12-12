@@ -1,18 +1,34 @@
-import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useState, useEffect, useContext } from 'react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
+
+import { AuthContext } from '../../contexts/AuthContext';
+
 import * as recipeService from '../../services/recipeService';
 
 
 function RecipeDetails() {
     const [recipe, setRecipe] = useState({});
+    const [creator, setCreator] = useState(false);
+    const navigate = useNavigate();
     let { recipeId } = useParams();
+    const { user } = useContext(AuthContext);
 
     useEffect(() => {
         recipeService.getOne(recipeId)
             .then(result => {
+                if (result.userId === user._id) {
+                    setCreator(true);
+                }
                 setRecipe(result);
             })
     }, []);
+
+    const deleteHandler = () => {
+        recipeService.deleteOne(recipeId, user._id)
+            .then(res => {
+                navigate('/all');
+            });
+    }
 
     return (
         <>
@@ -40,9 +56,16 @@ function RecipeDetails() {
                 <div className="text-center details-description">
                     <p>{recipe.description}</p>
                 </div>
-                <div className="details-edit-btn">
-                    <Link to={`/edit/${recipe._id}`}>Edit</Link>
-                </div>
+                {creator
+                    ? <div className="details-btns">
+
+                        <Link className="details-edit-btn" to={`/edit/${recipe._id}`}>Edit</Link>
+
+                        <button className="details-edit-btn" onClick={deleteHandler}>Delete</button>
+                    </div>
+                    : ''
+                }
+
             </section>
         </>
     );

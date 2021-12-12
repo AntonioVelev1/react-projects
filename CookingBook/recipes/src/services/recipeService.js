@@ -5,6 +5,22 @@ export const getAll = () => {
         .then(res => res.json());
 }
 
+export const getMyRecipes = (userId) => {
+    return fetch(`${API_URL}/myRecipes`, {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json',
+        },
+        body: JSON.stringify({ userId })
+    })
+        .then(res => res.json());
+}
+
+export const getLatest = () => {
+    return fetch(`${API_URL}/all`)
+        .then(res => res.json());
+}
+
 export const create = (recipeData) => {
     return fetch(`${API_URL}/create`, {
         method: 'POST',
@@ -13,6 +29,28 @@ export const create = (recipeData) => {
         },
         body: JSON.stringify(recipeData)
     });
+}
+
+export const edit = (recipeData, recipeId) => {
+    return fetch(`${API_URL}/edit/${recipeId}`, {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json',
+        },
+        body: JSON.stringify(recipeData)
+    })
+        .then(res => res.json());
+}
+
+export const deleteOne = (recipeId, userId) => {
+    return fetch(`${API_URL}/delete/${recipeId}`, {
+        method: 'DELETE',
+        headers: {
+            'content-type': 'application/json',
+        },
+        body: JSON.stringify({userId})
+    })
+        .then(res => res.json());
 }
 
 export const getOne = (recipeId) => {

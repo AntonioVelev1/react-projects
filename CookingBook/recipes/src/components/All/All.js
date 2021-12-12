@@ -1,16 +1,32 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import RecipeCard from "./RecipeCard/RecipeCard";
 import * as recipeService from '../../services/recipeService';
 
+import { AuthContext } from '../../contexts/AuthContext';
+
 function All() {
   const [recipes, setRecipes] = useState([]);
+  const location = useLocation();
+  const path = location.pathname;
+  let { user } = useContext(AuthContext);
+  const userId = user._id;
 
   useEffect(() => {
-    recipeService.getAll()
-      .then(result => {
-        console.log(result);
-        setRecipes(Object.values(result));
-      })
+    if (path.includes('all')) {
+      console.log('test');
+      recipeService.getAll()
+        .then(result => {
+          setRecipes(Object.values(result));
+        })
+    }
+    else {
+      console.log('test');
+      recipeService.getMyRecipes(userId)
+        .then(result => {
+          setRecipes(Object.values(result));
+        })
+    }
   }, []);
 
   return (
@@ -31,7 +47,7 @@ function All() {
               <div id="news-slider" className="news-slider all-products">
 
                 {recipes.length > 0
-                  ? recipes.map(x => <RecipeCard key= {x._id} recipe={x}/>)
+                  ? recipes.map(x => <RecipeCard key={x._id} recipe={x} />)
                   : <p>No recipes in database</p>}
 
               </div>

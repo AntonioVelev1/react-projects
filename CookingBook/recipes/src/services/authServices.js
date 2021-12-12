@@ -10,7 +10,7 @@ export const login = async (userData) => {
         body: JSON.stringify(userData)
     });
     // .then(rlt=>  localStorage.setItem('username', rlt.username))
-    // .catch(er => console.log(er.message));
+    // .catch(er => (er.message));
 
     let result = await res.json();
 

@@ -9,6 +9,8 @@ function IngredientsList({
     const [ingredients, setIngredients] = useState([]);
 
     const addIngredientHandler = function (e) {
+        e.preventDefault();
+
         let form = e.currentTarget.form;
 
         let formElements = Object.values(form);
@@ -18,7 +20,6 @@ function IngredientsList({
         let formData = new FormData(form);
         let ingredientName = formData.get('ingredientsName');
         let ingredientValue = formData.get('ingredientsValue');
-        console.log(ingredientName, ingredientValue);
 
         let newIngredients = {
             id: uniqid(),
@@ -38,6 +39,7 @@ function IngredientsList({
     }
 
     const deleteAddedIngredientsHandler = function(e, id) {
+        e.preventDefault();
         deleteIngredients(id);
         setIngredients(oldIngredients => oldIngredients.filter(x => x.id !== id));
     }
