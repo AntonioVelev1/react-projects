@@ -16,7 +16,6 @@ function Logout() {
     },[])
 
     return null;
-    //return <Navigate to="/login" replace={false} />;
 }
 
 export default Logout;

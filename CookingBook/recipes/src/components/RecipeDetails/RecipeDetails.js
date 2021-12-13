@@ -1,6 +1,8 @@
 import { useState, useEffect, useContext } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 
+import {} from './Details.css';
+
 import { AuthContext } from '../../contexts/AuthContext';
 
 import * as recipeService from '../../services/recipeService';
@@ -8,26 +10,31 @@ import * as recipeService from '../../services/recipeService';
 
 function RecipeDetails() {
     const [recipe, setRecipe] = useState({});
-    const [creator, setCreator] = useState(false);
     const navigate = useNavigate();
     let { recipeId } = useParams();
     const { user } = useContext(AuthContext);
+    const userId = user._id;
 
     useEffect(() => {
         recipeService.getOne(recipeId)
             .then(result => {
-                if (result.userId === user._id) {
-                    setCreator(true);
-                }
                 setRecipe(result);
             })
     }, []);
 
-    const deleteHandler = () => {
+    const deleteHandler = (e) => {
+        e.preventDefault();
         recipeService.deleteOne(recipeId, user._id)
             .then(res => {
                 navigate('/all');
             });
+    }
+
+    const likeHandler = () => {
+        // recipeService.like(recipeId, user._id)
+        //     .then(res => {
+        //         navigate('/all');
+        //     });
     }
 
     return (
@@ -56,16 +63,18 @@ function RecipeDetails() {
                 <div className="text-center details-description">
                     <p>{recipe.description}</p>
                 </div>
-                {creator
+                {userId && (userId === recipe.userId
                     ? <div className="details-btns">
 
                         <Link className="details-edit-btn" to={`/edit/${recipe._id}`}>Edit</Link>
 
                         <button className="details-edit-btn" onClick={deleteHandler}>Delete</button>
                     </div>
-                    : ''
-                }
-
+                    : <button className="details-edit-btn" onClick={likeHandler}>Like</button>
+                )}
+                <div>
+                    <p>Likes: {recipe.likes?.length}</p>
+                </div>
             </section>
         </>
     );

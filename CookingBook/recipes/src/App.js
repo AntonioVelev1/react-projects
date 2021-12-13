@@ -16,6 +16,7 @@ import About from './components/About/About';
 import Create from './components/CreateRecipe/Create';
 import RecipeDetails from './components/RecipeDetails/RecipeDetails';
 import EditRecipe from './components/EditRecipe/EditRecipe';
+import NotFound from './components/NotFound/NotFound';
 
 function App() {
   const [user, setUser] = useState({
@@ -52,6 +53,7 @@ function App() {
         <Header />
         <main>
           <Routes>
+            <Route path="*" element={<NotFound />} />
             <Route path="/" element={<Home />} />
             <Route path="/all" element={<All />} />
             <Route path="/myRecipes" element={<All />} />
