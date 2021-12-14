@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import IngredientsList from "../IngredientList/IngredientsList";
 import * as recipeService from '../../services/recipeService';
-import { AuthContext } from '../../contexts/AuthContext';
-import { useContext } from 'react';
+
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 function Create() {
-    let { user } = useContext(AuthContext)
+    let { user } = useAuthContext();
     const navigate = useNavigate();
     let ingredients = [];
 

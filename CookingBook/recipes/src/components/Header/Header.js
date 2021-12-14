@@ -1,10 +1,9 @@
-import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-import { AuthContext } from '../../contexts/AuthContext';
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 function Header() {
-    const { user } = useContext(AuthContext);
+    const { user } = useAuthContext();
     let guestNavigation = (
         <>
             <li className="nav-item"><Link to="/all" className="nav-link text-uppercase font-weight-bold js-scroll-trigger">Recipes</Link></li>
@@ -60,7 +59,7 @@ function Header() {
                                                 <li className="nav-item"><Link to="/" className="nav-link text-uppercase font-weight-bold js-scroll-trigger">Home</Link></li>
                                                 <li className="nav-item"><Link to="/about" className="nav-link text-uppercase font-weight-bold js-scroll-trigger">About</Link></li>
 
-                                                {user.email
+                                                {user?.email
                                                     ? userNavigation
                                                     : guestNavigation
                                                 }

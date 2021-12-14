@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 
 import * as authService from './services/authServices'
 
-import { AuthContext } from './contexts/AuthContext';
+import { AuthProvider } from './contexts/AuthContext';
 
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
@@ -19,36 +19,9 @@ import EditRecipe from './components/EditRecipe/EditRecipe';
 import NotFound from './components/NotFound/NotFound';
 
 function App() {
-  const [user, setUser] = useState({
-    _id: '',
-    email: '',
-  });
-
-  useEffect(()=>{
-    let userLocal = authService.getLocalStorage();
-    if(!!userLocal){
-     let currUser = JSON.parse(userLocal);
-      setUser(currUser);
-    }
-  },[]);
- 
-  const login = (data) => {
-    setUser(data);
-  }
-
-  const register = (data) => {
-    setUser(data);
-  }
-
-  const logout = () => {
-    setUser({
-      _id: '',
-      email: '',
-    });
-  }
 
   return (
-    <AuthContext.Provider value={{user, login, register, logout}}>
+    <AuthProvider>
       <div>
         <Header />
         <main>
@@ -68,7 +41,7 @@ function App() {
         </main>
         <Footer />
       </div>
-    </AuthContext.Provider>
+    </AuthProvider>
   );
 }
 

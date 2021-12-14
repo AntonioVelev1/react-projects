@@ -1,8 +1,8 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import EditIngredientsItem from './EditIngredientsItem.js/EditIngredientsItem';
 import * as recipeService from '../../services/recipeService';
-import { AuthContext } from '../../contexts/AuthContext';
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 function EditRecipe() {
     const [recipe, setRecipe] = useState({});
@@ -11,7 +11,7 @@ function EditRecipe() {
     const { recipeId } = useParams();
     let navigate = useNavigate();
 
-    let { user } = useContext(AuthContext);
+    let { user } = useAuthContext();
     let userId = user._id;
 
     const obj = {

@@ -1,11 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import * as authService from '../../services/authServices';
-import { AuthContext } from '../../contexts/AuthContext';
-import { useContext } from 'react';
 import { useEffect } from 'react/cjs/react.development';
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 function Logout() {
-    let { logout } = useContext(AuthContext);
+    let { logout } = useAuthContext();
     let navigate = useNavigate();
 
     useEffect(()=>{

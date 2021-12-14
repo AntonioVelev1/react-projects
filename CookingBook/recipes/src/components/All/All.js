@@ -1,15 +1,15 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import RecipeCard from "./RecipeCard/RecipeCard";
 import * as recipeService from '../../services/recipeService';
 
-import { AuthContext } from '../../contexts/AuthContext';
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 function All() {
   const [recipes, setRecipes] = useState([]);
   const location = useLocation();
   const path = location.pathname;
-  let { user } = useContext(AuthContext);
+  let { user } = useAuthContext();
   const userId = user._id;
 
   useEffect(() => {
