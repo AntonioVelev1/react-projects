@@ -87,7 +87,7 @@ function RecipeDetails() {
                         <h3>Ingredients</h3>
                         <ul className="details-ingredients-list">
                             {recipe.ingredients?.map(x =>
-                                <li key={x._id}>{x.ingredientName} {x.ingredientValue}</li>
+                                <li key={x._id}>{x.ingredientName} - {x.ingredientValue}</li>
                             )}
                         </ul>
                     </article>

@@ -33,7 +33,7 @@ export const create = (recipeData) => {
 
 export const edit = (recipeData, recipeId) => {
     return fetch(`${API_URL}/edit/${recipeId}`, {
-        method: 'POST',
+        method: 'PUT',
         headers: {
             'content-type': 'application/json',
         },

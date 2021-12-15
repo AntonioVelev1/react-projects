@@ -4,6 +4,8 @@ import EditIngredientsItem from './EditIngredientsItem.js/EditIngredientsItem';
 import * as recipeService from '../../services/recipeService';
 import { useAuthContext } from '../../hooks/useAuthContext';
 
+import IngredientsList from '../IngredientList/IngredientsList';
+
 function EditRecipe() {
     const [recipe, setRecipe] = useState({});
     const [ingredients, setIngredients] = useState([]);
@@ -13,16 +15,9 @@ function EditRecipe() {
 
     let { user } = useAuthContext();
     let userId = user._id;
-
-    const obj = {
-        userId,
-        recipeId,
-    };
-
-    console.log(obj);
-    //let ingredients = recipe.ingredients;
-
+    console.log('render2');
     useEffect(() => {
+        console.log('render');
         recipeService.getOne(recipeId)
             .then(currentRecipe => {
                 setRecipe(currentRecipe);
@@ -31,8 +26,8 @@ function EditRecipe() {
             .catch(err => {
                 console.log(err)
             });
-    }, []);
 
+    }, []);
     const editHandler = (e) => {
         e.preventDefault();
 
@@ -41,6 +36,7 @@ function EditRecipe() {
         let name = formData.get('name');
         let description = formData.get('description');
         let imageURL = formData.get('imageURL');
+
 
         recipeService.edit({
             name,
@@ -51,25 +47,16 @@ function EditRecipe() {
         },
             recipeId)
             .then(result => {
-
-                if (result.isSuccessfully === false) {
-                    navigate(`/`);
-                }
-                else {
-                    setRecipe(result);
-                    navigate(`/details/${recipeId}`);
-                }
+                setRecipe(result);
+                navigate(`/details/${recipeId}`);
             });
     }
 
     const deleteAddedIngredientsHandler = function (e, id) {
         e.preventDefault();
 
-        console.log('delete');
-        let filteredIngredients = ingredients.filter(x => x.id !== id);
+        let filteredIngredients = ingredients.filter(x => x._id !== id);
         setIngredients(filteredIngredients);
-        // deleteIngredients(id);
-        // setIngredients(oldIngredients => oldIngredients.filter(x => x.id !== id));
     }
 
     return (
@@ -97,7 +84,7 @@ function EditRecipe() {
                 <div className="wrap-input100 rs1-wrap-input100 validate-input">
                     <span className="label-input100">Ingredients</span>
                     {
-                        recipe.ingredients?.map(x =>
+                        ingredients.map(x =>
                             <EditIngredientsItem
                                 onDelete={deleteAddedIngredientsHandler}
                                 key={x._id}
@@ -107,8 +94,6 @@ function EditRecipe() {
                     }
                     <span className="focus-input100"></span>
                 </div>
-
-                {/* <IngredientsList getIngredients={getIngredientsHanler} deleteIngredients={deleteIngredientsHanler} /> */}
 
                 <div className="container-contact100-form-btn">
                     <button className="contact100-form-btn">

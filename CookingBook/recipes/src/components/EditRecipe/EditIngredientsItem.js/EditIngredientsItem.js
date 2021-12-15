@@ -3,18 +3,28 @@ function EditIngredientsItem({
     ingredient,
     onDelete
 }) {
-    
+    function setIngredientsName(e) {
+        e.preventDefault();
+        let newName = e.currentTarget.value;
+        ingredient.ingredientName = newName;
+    }
+
+    function setIngredientsValue(e) {
+        e.preventDefault();
+        let newValue = e.currentTarget.value;
+        ingredient.ingredientValue = newValue;
+    }
 
     return (
         <div>
             <label>
-                <input className="input100" type="text" name="ingredientName" defaultValue={ingredient.ingredientName} />
+                <input onBlur={setIngredientsName} className="input100" type="text" name="ingredientName" defaultValue={ingredient.ingredientName} />
             </label>
             <label>
-                <input className="input100" type="text" name="ingredientValue" defaultValue={ingredient.ingredientValue} />
+                <input onBlur={setIngredientsValue} className="input100" type="text" name="ingredientValue" defaultValue={ingredient.ingredientValue} />
             </label>
             <label>
-            <button onClick={(e) => onDelete(e, ingredient.id)}><i className="fas fa-trash-alt"></i></button>
+                <button onClick={(e) => onDelete(e, ingredient._id)}><i className="fas fa-trash-alt"></i></button>
             </label>
         </div>
     );

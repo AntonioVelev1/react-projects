@@ -57,7 +57,7 @@ function IngredientsList({
                     </label>
                     <span className="focus-input100"></span>
                 </div>
-                <button className="add-ingredient" type="button" onClick={addIngredientHandler}>Add Ingredient</button>
+                <button className="add-ingredient" type="buton" onClick={addIngredientHandler}>Add Ingredient</button>
                 <div className="ingredients-list">
                     <h3 className="added-ingredients-title">Added ingredients</h3>
                     <ul>
