@@ -57,3 +57,26 @@ export const getOne = (recipeId) => {
     return fetch(`${API_URL}/details/${recipeId}`)
         .then(res => res.json());
 }
+
+
+export const like = (recipeId, userId) => {
+    return fetch(`${API_URL}/${recipeId}`, {
+        method: 'PUT',
+        headers: {
+            'content-type': 'application/json',
+        },
+        body: JSON.stringify({userId})
+    })
+        .then(res => res.json());
+}
+
+export const unlike = (recipeId, userId) => {
+    return fetch(`${API_URL}/unlike/${recipeId}`, {
+        method: 'PUT',
+        headers: {
+            'content-type': 'application/json',
+        },
+        body: JSON.stringify({userId})
+    })
+        .then(res => res.json());
+}

@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 
-import {} from './Details.css';
-
 import { useAuthContext } from '../../hooks/useAuthContext';
-
 import * as recipeService from '../../services/recipeService';
+
+import DeleteConfirmation from '../common/DeleteConfirmation/DelteConfirmation';
+import { } from './Details.css';
 
 
 function RecipeDetails() {
     const [recipe, setRecipe] = useState({});
+    const [show, setShow] = useState(false);
     const navigate = useNavigate();
     let { recipeId } = useParams();
     const { user } = useAuthContext();
@@ -30,15 +31,46 @@ function RecipeDetails() {
             });
     }
 
+    const deleteClickHandler = (e) => {
+        e.preventDefault();
+
+        setShow(true);
+    }
+
     const likeHandler = () => {
-        // recipeService.like(recipeId, user._id)
-        //     .then(res => {
-        //         navigate('/all');
-        //     });
+        if (recipe.likes.includes(userId)) {
+            console.log('You already like this recipe');
+
+            recipeService.unlike(recipeId, userId)
+                .then(res => {
+                    if (res.message === 'Uniked successful!') {
+                        let likes = recipe.likes.filter(x => x !== userId);
+                        setRecipe(state => ({
+                            ...state,
+                            likes,
+                        }));
+                    }
+                });
+        } else {
+            recipeService.like(recipeId, userId)
+                .then(res => {
+                    if (res.message === 'Liked successful!') {
+                        let likes = [...recipe.likes, userId];
+                        setRecipe(state => ({
+                            ...state,
+                            likes,
+                        }));
+                    }
+                    // navigate('/all');
+                });
+        }
     }
 
     return (
         <>
+            {show
+                ? <DeleteConfirmation onClose={() => setShow(false)} />
+                : ''}
             <section className="details-page">
                 <div className="row">
                     <div className="col-xs-12">
@@ -68,12 +100,12 @@ function RecipeDetails() {
 
                         <Link className="details-edit-btn" to={`/edit/${recipe._id}`}>Edit</Link>
 
-                        <button className="details-edit-btn" onClick={deleteHandler}>Delete</button>
+                        <button className="details-edit-btn" onClick={deleteClickHandler}>Delete</button>
                     </div>
                     : <button className="details-edit-btn" onClick={likeHandler}>Like</button>
                 )}
                 <div>
-                    <p>Likes: {recipe.likes?.length}</p>
+                    <p className='likes'>Likes: {recipe.likes?.length}</p>
                 </div>
             </section>
         </>

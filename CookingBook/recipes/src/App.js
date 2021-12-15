@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import * as authService from './services/authServices'
-
 import { AuthProvider } from './contexts/AuthContext';
 
 import Footer from "./components/Footer/Footer";

@@ -19,6 +19,9 @@ function All() {
         .then(result => {
           setRecipes(Object.values(result));
         })
+        .catch(err => {
+          console.log(err)
+        });
     }
     else {
       console.log('test');
@@ -26,6 +29,9 @@ function All() {
         .then(result => {
           setRecipes(Object.values(result));
         })
+        .catch(err => {
+          console.log(err)
+        });
     }
   }, []);
 

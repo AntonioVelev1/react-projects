@@ -28,6 +28,9 @@ function EditRecipe() {
                 setRecipe(currentRecipe);
                 setIngredients(currentRecipe.ingredients);
             })
+            .catch(err => {
+                console.log(err)
+            });
     }, []);
 
     const editHandler = (e) => {
@@ -48,11 +51,11 @@ function EditRecipe() {
         },
             recipeId)
             .then(result => {
-                
-                if(result.isSuccessfully === false){
+
+                if (result.isSuccessfully === false) {
                     navigate(`/`);
                 }
-                else{
+                else {
                     setRecipe(result);
                     navigate(`/details/${recipeId}`);
                 }
@@ -83,7 +86,7 @@ function EditRecipe() {
                     <input className="input100" type="text" name="imageURL" placeholder="Enter name" defaultValue={recipe.imageURL} />
                     <span className="focus-input100"></span>
                 </div>
-                
+
 
                 <div className="wrap-input100 rs1-wrap-input100 validate-input">
                     <span className="label-input100">Description</span>

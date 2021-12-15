@@ -13,4 +13,7 @@ router.put('/edit/:recipeId', recipeController.editRecipe);
 router.get('/details/:recipeId', recipeController.getRecipe);
 router.delete('/delete/:recipeId', recipeController.deleteRecipe);
 
+router.put('/:recipeId', recipeController.like);
+router.put('/unlike/:recipeId', recipeController.unlike);
+
 module.exports = router

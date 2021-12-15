@@ -98,12 +98,25 @@ function deleteRecipe(req, res, next) {
 
 function like(req, res, next) {
     const { recipeId } = req.params;
-    const { _id: userId } = req.user;
+    const { userId } = req.body;
 
     console.log('like')
 
     recipeModel.updateOne({ _id: recipeId }, { $addToSet: { likes: userId } }, { new: true })
-        .then(() => res.status(200).json({ message: 'Liked successful!' }))
+        .then((likedRecipe) => {
+             res.status(200).json({ message: 'Liked successful!' }) })
+        .catch(next)
+}
+
+function unlike(req, res, next) {
+    const { recipeId } = req.params;
+    const { userId } = req.body;
+
+    console.log('like')
+
+    recipeModel.updateOne({ _id: recipeId }, { $pull: { likes: userId } }, { new: true })
+        .then((likedRecipe) => {
+             res.status(200).json({ message: 'Uniked successful!' }) })
         .catch(next)
 }
 
@@ -117,4 +130,5 @@ module.exports = {
     editRecipe,
     deleteRecipe,
     like,
+    unlike
 }
