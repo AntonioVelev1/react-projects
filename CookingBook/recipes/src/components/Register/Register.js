@@ -2,8 +2,10 @@ import { useNavigate } from 'react-router-dom';
 import * as authService from '../../services/authServices';
 
 import { useAuthContext } from '../../hooks/useAuthContext';
+import { useState } from 'react';
 
 function Register() {
+    const [error, setError] = useState({message: '', hasErr: false});
     const { register } = useAuthContext();
     const navigate = useNavigate();
 
@@ -36,12 +38,21 @@ function Register() {
 
     }
 
+    const checkInputHadler = (e) => {
+        let currentValue = e.currentTarget.value;
+
+        if(!currentValue) {
+            setError({message: 'Input is required', hasErr: true});
+        }
+    }
+
+
     return (
         <form className="contact100-form validate-form" onSubmit={onRegisterHandler}>
             <div className="wrap-input100 rs1-wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
                 <span className="label-input100">Username</span>
-                <input className="input100" type="text" name="username" placeholder="Enter your username addess" />
-                <span className="focus-input100"></span>
+                <input className="input100" type="text" name="username" onBlur={checkInputHadler} placeholder="Enter your username addess" />
+                { error.hasErr ? <span className="focus-input100"></span> : ''}
             </div>
 
             <div className="wrap-input100 rs1-wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import RecipeCard from "./RecipeCard/RecipeCard";
 import * as recipeService from '../../services/recipeService';
 
 import { useAuthContext } from '../../hooks/useAuthContext';

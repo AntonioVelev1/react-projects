@@ -12,7 +12,7 @@ import { } from './Details.css';
 function RecipeDetails() {
     let { recipeId } = useParams();
     const [recipe, setRecipe] = useRecipe(recipeId);
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState(false); 
     const navigate = useNavigate();
     const { user } = useAuthContext();
     const userId = user._id;
@@ -63,7 +63,7 @@ function RecipeDetails() {
     return (
         <>
             {show
-                ? <DeleteConfirmation onClose={() => setShow(false)} />
+                ? <DeleteConfirmation onAccept={deleteHandler} onClose={() => setShow(false)} />
                 : ''}
             <section className="details-page">
                 <div className="row">
