@@ -3,21 +3,23 @@ import { useNavigate, useParams } from 'react-router-dom';
 import * as recipeService from '../../services/recipeService';
 import { useAuthContext } from '../../hooks/useAuthContext';
 
+
 import uniqid from 'uniqid';
 
 import EditIngredientsItem from './EditIngredientsItem.js/EditIngredientsItem';
 import AddIngredient from '../AddIngredient/AddIngredient';
 
 function EditRecipe() {
+    const { recipeId } = useParams();
+
     const [recipe, setRecipe] = useState({});
     const [ingredients, setIngredients] = useState([]);
 
-    const { recipeId } = useParams();
     let navigate = useNavigate();
 
     let { user } = useAuthContext();
     let userId = user._id;
-    console.log('render2');
+    
     useEffect(() => {
         console.log('render');
         recipeService.getOne(recipeId)
@@ -71,7 +73,7 @@ function EditRecipe() {
         let ingredientValue = formData.get('ingredientsValue');
 
         let newIngredient = {
-            _id: uniqid(),
+            id: uniqid(),
             ingredientName: ingredientName,
             ingredientValue: ingredientValue,
         };
@@ -113,7 +115,7 @@ function EditRecipe() {
                         ingredients.map(x =>
                             <EditIngredientsItem
                                 onDelete={deleteAddedIngredientsHandler}
-                                key={x._id}
+                                key={x._id || x.id}
                                 ingredient={x}
                             />
                         )

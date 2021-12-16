@@ -39,7 +39,7 @@ function Footer() {
                                             <div className="footer-icon"></div>
                                         </div>
                                         <div className="col-md-10 col-sm-10 col-xs-10">
-                                            <a href=""><p>About Our Shop</p></a>
+                                            <Link to="/about"><p>About</p></Link>
                                         </div>
                                     </div>
                                 </li>
@@ -49,7 +49,7 @@ function Footer() {
                                             <div className="footer-icon"></div>
                                         </div>
                                         <div className="col-md-10 col-sm-10 col-xs-10">
-                                            <a href=""><p>Top Sellers</p></a>
+                                            <Link to="/all"><p>Recipes</p></Link>
                                         </div>
                                     </div>
                                 </li>

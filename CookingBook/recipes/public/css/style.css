@@ -353,7 +353,6 @@ section#section2 .maintext span{
 }
 
 
-
 section#section2 .maintext h2 {
   font-size: 70px;
   font-family: 'Righteous';
@@ -366,7 +365,7 @@ section#section2 .maintext h2 {
 section#section2 .maintext p {
 
   font-family: "Roboto";
-  font-size: 14px;
+  font-size: 20px;
   line-height: 1.7;
   color: #666666;
   margin: 0px;

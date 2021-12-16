@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 
 import { useAuthContext } from '../../hooks/useAuthContext';
+import useRecipe from '../../hooks/useRecipe';
 import * as recipeService from '../../services/recipeService';
 
 import DeleteConfirmation from '../common/DeleteConfirmation/DelteConfirmation';
@@ -9,19 +10,13 @@ import { } from './Details.css';
 
 
 function RecipeDetails() {
-    const [recipe, setRecipe] = useState({});
+    let { recipeId } = useParams();
+    const [recipe, setRecipe] = useRecipe(recipeId);
     const [show, setShow] = useState(false);
     const navigate = useNavigate();
-    let { recipeId } = useParams();
     const { user } = useAuthContext();
     const userId = user._id;
 
-    useEffect(() => {
-        recipeService.getOne(recipeId)
-            .then(result => {
-                setRecipe(result);
-            })
-    }, []);
 
     const deleteHandler = (e) => {
         e.preventDefault();
