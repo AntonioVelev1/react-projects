@@ -719,6 +719,14 @@ div#news-slider .owl-next {
 
 }
 
+.welcome-user {
+  color: white;
+  font-size: 16px;
+  text-align: center;
+  padding-top: 10px;
+  margin-left: 10px;
+  font-weight: bold;
+}
 
 /*
 * ==========================================

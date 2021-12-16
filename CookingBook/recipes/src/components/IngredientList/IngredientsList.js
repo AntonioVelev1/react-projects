@@ -2,6 +2,8 @@ import IngredientsItem from "./IngredientItem/IngredientsItem";
 import uniqid from 'uniqid';
 import { useState } from 'react';
 
+import AddIngredient from "../AddIngredient/AddIngredient";
+
 function IngredientsList({
     getIngredients,
     deleteIngredients
@@ -13,10 +15,6 @@ function IngredientsList({
 
         let form = e.currentTarget.form;
 
-        let formElements = Object.values(form);
-        let ingredientNameInput = formElements[3];
-        let ingredientValueInput = formElements[4];
-
         let formData = new FormData(form);
         let ingredientName = formData.get('ingredientsName');
         let ingredientValue = formData.get('ingredientsValue');
@@ -26,7 +24,7 @@ function IngredientsList({
             ingredientName: ingredientName,
             ingredientValue: ingredientValue,
         };
-        
+
         setIngredients(state => [
             ...state,
             newIngredients
@@ -34,11 +32,11 @@ function IngredientsList({
 
         getIngredients(newIngredients);
 
-        ingredientNameInput.value = '';
-        ingredientValueInput.value = '';
+        form.elements['ingredientsName'].value = '';
+        form.elements['ingredientsValue'].value = '';
     }
 
-    const deleteAddedIngredientsHandler = function(e, id) {
+    const deleteAddedIngredientsHandler = function (e, id) {
         e.preventDefault();
         deleteIngredients(id);
         setIngredients(oldIngredients => oldIngredients.filter(x => x.id !== id));
@@ -48,16 +46,7 @@ function IngredientsList({
         <>
             <div className="wrap-input100 rs1-wrap-input100 validate-input">
                 <span className="label-input100">Ingredients</span>
-                <div className="ingredients">
-                    <label htmlFor="ingredientsName">
-                        <input className="input100 ingredients-input" type="text" name="ingredientsName" placeholder="Igredients name"/>
-                    </label>
-                    <label htmlFor="ingredientsValue">
-                        <input className="input100 ingredients-input" type="text" name="ingredientsValue" placeholder="Igredients value"/>
-                    </label>
-                    <span className="focus-input100"></span>
-                </div>
-                <button className="add-ingredient" type="buton" onClick={addIngredientHandler}>Add Ingredient</button>
+                <AddIngredient addIngredient={addIngredientHandler}></AddIngredient>
                 <div className="ingredients-list">
                     <h3 className="added-ingredients-title">Added ingredients</h3>
                     <ul>

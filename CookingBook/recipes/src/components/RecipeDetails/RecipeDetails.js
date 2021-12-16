@@ -61,7 +61,6 @@ function RecipeDetails() {
                             likes,
                         }));
                     }
-                    // navigate('/all');
                 });
         }
     }

@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import EditIngredientsItem from './EditIngredientsItem.js/EditIngredientsItem';
 import * as recipeService from '../../services/recipeService';
 import { useAuthContext } from '../../hooks/useAuthContext';
 
-import IngredientsList from '../IngredientList/IngredientsList';
+import uniqid from 'uniqid';
+
+import EditIngredientsItem from './EditIngredientsItem.js/EditIngredientsItem';
+import AddIngredient from '../AddIngredient/AddIngredient';
 
 function EditRecipe() {
     const [recipe, setRecipe] = useState({});
@@ -59,6 +61,30 @@ function EditRecipe() {
         setIngredients(filteredIngredients);
     }
 
+    const addIngredientHandler = function (e) {
+        e.preventDefault();
+
+        let form = e.currentTarget.form;
+        
+        let formData = new FormData(form);
+        let ingredientName = formData.get('ingredientsName');
+        let ingredientValue = formData.get('ingredientsValue');
+
+        let newIngredient = {
+            _id: uniqid(),
+            ingredientName: ingredientName,
+            ingredientValue: ingredientValue,
+        };
+
+        setIngredients(state => [
+            ...state,
+            newIngredient
+        ]);
+
+        form.elements['ingredientsName'].value = '';
+        form.elements['ingredientsValue'].value = '';
+    }
+
     return (
         <>
             <form className="contact100-form validate-form" method="POST" onSubmit={editHandler}>
@@ -93,7 +119,12 @@ function EditRecipe() {
                         )
                     }
                     <span className="focus-input100"></span>
+                    <div>
+                        <AddIngredient addIngredient={addIngredientHandler}></AddIngredient>
+                    </div>
                 </div>
+
+
 
                 <div className="container-contact100-form-btn">
                     <button className="contact100-form-btn">
