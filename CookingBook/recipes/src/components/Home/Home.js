@@ -1,4 +1,5 @@
 import Latest from "../LatestAdd/Latest";
+import Notification from "../common/Notification/Notifcation";
 
 function Home() {
     return (
@@ -42,7 +43,7 @@ function Home() {
           </div>
         </div>
       </section>
-
+      <Notification/>
       <Latest/>
       </>
     );

@@ -18,23 +18,6 @@ function DeleteConfirmation({
                 </div>
             </form>
         </div>
-
-        // <div className="modal" show={show}>
-        //     <div className='modal-content'>
-        //     <div>
-        //         <h1>Modal title</h1>
-        //     </div>
-
-        //     <dix>
-        //         <p>Modal body text goes here.</p>
-        //     </dix>
-
-        //     <div>
-        //         <button variant="secondary" onClick={onClose}>Close</button>
-        //         <button variant="primary">Save changes</button>
-        //     </div>
-        //     </div>
-        // </div>
     );
 }
 
