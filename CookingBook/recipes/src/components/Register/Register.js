@@ -3,24 +3,28 @@ import * as authService from '../../services/authServices';
 
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver} from '@hookform/resolvers/yup';
+import { userSchema } from '../../validations/UserValidation';
 
-function Register() {
-    const [error, setError] = useState({message: '', hasErr: false});
-    const { register } = useAuthContext();
+function Register() {   
+    const { login } = useAuthContext();
     const navigate = useNavigate();
+    
+    const  { register, handleSubmit, formState: { errors } } = useForm({
+        mode: 'onBlur',
+        resolver: yupResolver(userSchema),
+    });
 
-    const onRegisterHandler = (e) => {
+
+    const onRegisterHandler = (data, e) => {
         e.preventDefault();
 
-        let formData = new FormData(e.currentTarget);
+        let formData = new FormData(e.target);
         let email = formData.get('email');
         let username = formData.get('username');
         let password = formData.get('password');
         let rePassword = formData.get('rePassword');
-
-        if (password !== rePassword) {
-            console.error('Password don\'t match');
-        }
 
         authService.register({
             email,
@@ -29,7 +33,7 @@ function Register() {
             rePassword
         })
             .then((data) => {
-                register(data);
+                login(data);
                 navigate('/');
             })
             .catch(err => {
@@ -38,39 +42,34 @@ function Register() {
 
     }
 
-    const checkInputHadler = (e) => {
-        let currentValue = e.currentTarget.value;
-
-        if(!currentValue) {
-            setError({message: 'Input is required', hasErr: true});
-        }
-    }
-
 
     return (
-        <form className="contact100-form validate-form" onSubmit={onRegisterHandler}>
+        <form className="contact100-form validate-form" onSubmit={handleSubmit(onRegisterHandler)}>
             <div className="wrap-input100 rs1-wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
                 <span className="label-input100">Username</span>
-                <input className="input100" type="text" name="username" onBlur={checkInputHadler} placeholder="Enter your username addess" />
-                { error.hasErr ? <span className="focus-input100"></span> : ''}
+                <input {...register("username")} className="input100" type="text" name="username" placeholder="Enter your username addess" />
+                <p className="validation-error">{errors.username?.message}</p>
             </div>
 
             <div className="wrap-input100 rs1-wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
                 <span className="label-input100">Email</span>
-                <input className="input100" type="text" name="email" placeholder="Enter your email addess" />
+                <input {...register("email")} className="input100" type="text" name="email" placeholder="Enter your email addess" />
                 <span className="focus-input100"></span>
+                <p className="validation-error">{errors.email?.message}</p>
             </div>
 
             <div className="wrap-input100 rs1-wrap-input100 validate-input" data-validate="Name is required">
                 <span className="label-input100">Password</span>
-                <input className="input100" type="password" name="password" placeholder="Enter your passwords" />
+                <input {...register("password")} className="input100" type="password" name="password" placeholder="Enter your passwords" />
                 <span className="focus-input100"></span>
+                <p className="validation-error">{errors.password?.message}</p>
             </div>
 
             <div className="wrap-input100 rs1-wrap-input100 validate-input" data-validate="Name is required">
                 <span className="label-input100">Repeat Password</span>
-                <input className="input100" type="password" name="rePassword" placeholder="Repeat passwords" />
+                <input {...register("rePassword")} className="input100" type="password" name="rePassword" placeholder="Repeat passwords" />
                 <span className="focus-input100"></span>
+                <p className="validation-error">{errors.rePassword?.message}</p>
             </div>
 
             <div className="container-contact100-form-btn">
