@@ -1,5 +1,5 @@
 import Latest from "../LatestAdd/Latest";
-import Notification from "../common/Notification/Notifcation";
+import Notification from "../common/Notification/Notification";
 
 function Home() {
     return (

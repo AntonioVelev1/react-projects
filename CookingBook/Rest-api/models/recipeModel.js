@@ -8,20 +8,20 @@ const recipeSchema = new mongoose.Schema({
     },
     imageURL: {
         type: String,
-        require: true
+        required: true
     },
     description: {
         type: String,
-        require: true
+        required: true
     },
     ingredients: [{
         ingredientName: {
             type: String,
-            require: true
+            required: true
         },
         ingredientValue: {
             type: String,
-            require: true
+            required: true
         },
     }],
     likes: [{

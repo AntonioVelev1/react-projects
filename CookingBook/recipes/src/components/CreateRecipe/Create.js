@@ -3,8 +3,13 @@ import IngredientsList from "../IngredientList/IngredientsList";
 import * as recipeService from '../../services/recipeService';
 
 import { useAuthContext } from '../../hooks/useAuthContext';
+import { useState } from 'react/cjs/react.development';
+
+import Notification from '../common/Notification/Notification';
 
 function Create() {
+    const [errors, setErrors] = useState([]);
+    const [show, setShow] = useState(false);
     let { user } = useAuthContext();
     const navigate = useNavigate();
     let ingredients = [];
@@ -26,9 +31,15 @@ function Create() {
             ingredients,
             userId,
         })
-            .then(result => {
-                navigate('/all');
-            });
+            .then(res => {
+                if (res.message) {
+                    setErrors([res.message]);
+                    setShow(true);
+                } else {
+                    navigate('/all');
+                }
+            })
+            .catch(err => console.log(err));
     }
 
     function getIngredientsHanler(value) {
@@ -41,6 +52,9 @@ function Create() {
 
     return (
         <>
+            {show
+                ? <Notification message={errors} onClose={() => setShow(false)} />
+                : 'Loading...'}
             <form className="contact100-form validate-form" onSubmit={createRecipeHandler} method="POST">
                 <div className="wrap-input100 rs1-wrap-input100 validate-input">
                     <span className="label-input100">Name</span>

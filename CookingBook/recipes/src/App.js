@@ -16,6 +16,7 @@ import EditRecipe from './components/EditRecipe/EditRecipe';
 import MyRecipes from './components/MyRecipes/MyRecipes';
 import NotFound from './components/NotFound/NotFound';
 import PrivateRoute from './components/common/PrivateRoute/PrivateRoute';
+import LoggedUserRoute from './components/common/PrivateRoute/LoggedUserRoute';
 
 function App() {
 
@@ -35,8 +36,10 @@ function App() {
               <Route path="/edit/:recipeId" element={<EditRecipe />} />
             </Route>
             <Route path="/about" element={<About />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            <Route element={<LoggedUserRoute />}>
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+            </Route>
             <Route path="/details/:recipeId" element={<RecipeDetails />} />
           </Routes>
         </main>

@@ -8,18 +8,21 @@ import uniqid from 'uniqid';
 
 import EditIngredientsItem from './EditIngredientsItem.js/EditIngredientsItem';
 import AddIngredient from '../AddIngredient/AddIngredient';
+import Notification from '../common/Notification/Notification';
 
 function EditRecipe() {
     const { recipeId } = useParams();
 
     const [recipe, setRecipe] = useState({});
     const [ingredients, setIngredients] = useState([]);
+    const [errors, setErrors] = useState([]);
+    const [show, setShow] = useState(false);
 
     let navigate = useNavigate();
 
     let { user } = useAuthContext();
     let userId = user._id;
-    
+
     useEffect(() => {
         console.log('render');
         recipeService.getOne(recipeId)
@@ -32,6 +35,29 @@ function EditRecipe() {
             });
 
     }, []);
+
+    function convertMessage(message) {
+        let handledMsg = '';
+
+        if(message.includes('name')) {
+            handledMsg = 'Name is required! ';
+        }
+
+        if(message.includes('description')) {
+            handledMsg += 'Description is required! ';
+        }
+
+        if(message.includes('image')) {
+            handledMsg += 'Image url is required! ';
+        }
+
+        if(message.includes('ingredient')) {
+            handledMsg += 'Ingredients are required! ';
+        }
+
+        return handledMsg;
+    }
+
     const editHandler = (e) => {
         e.preventDefault();
 
@@ -51,8 +77,14 @@ function EditRecipe() {
         },
             recipeId)
             .then(result => {
-                setRecipe(result);
-                navigate(`/details/${recipeId}`);
+                if (result.message) {
+                    let msg = convertMessage(result.err.message);
+                    setErrors([msg]);
+                    setShow(true);
+                } else {
+                    setRecipe(result);
+                    navigate(`/details/${recipeId}`);
+                }
             });
     }
 
@@ -67,7 +99,7 @@ function EditRecipe() {
         e.preventDefault();
 
         let form = e.currentTarget.form;
-        
+
         let formData = new FormData(form);
         let ingredientName = formData.get('ingredientsName');
         let ingredientValue = formData.get('ingredientsValue');
@@ -89,6 +121,9 @@ function EditRecipe() {
 
     return (
         <>
+            {show
+                ? <Notification message={errors} onClose={() => setShow(false)} />
+                : ''}
             <form className="contact100-form validate-form" method="POST" onSubmit={editHandler}>
                 <div className="wrap-input100 rs1-wrap-input100 validate-input">
                     <span className="label-input100">Name</span>
@@ -98,7 +133,7 @@ function EditRecipe() {
 
                 <div className="wrap-input100 rs1-wrap-input100 validate-input">
                     <span className="label-input100">ImageURL</span>
-                    <input className="input100" type="text" name="imageURL" placeholder="Enter name" defaultValue={recipe.imageURL} />
+                    <input className="input100" type="text" name="imageURL" placeholder="Enter name" defaultValue={recipe.imageURL} disabled/>
                     <span className="focus-input100"></span>
                 </div>
 

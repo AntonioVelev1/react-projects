@@ -8,6 +8,7 @@ export const getAll = () => {
 export const getMyRecipes = (userId) => {
     return fetch(`${API_URL}/myRecipes`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'content-type': 'application/json',
         },
@@ -24,22 +25,31 @@ export const getLatest = () => {
 export const create = (recipeData) => {
     return fetch(`${API_URL}/create`, {
         method: 'POST',
-        headers: {
-            'content-type': 'application/json',
-        },
-        body: JSON.stringify(recipeData)
-    });
-}
-
-export const edit = (recipeData, recipeId) => {
-    return fetch(`${API_URL}/edit/${recipeId}`, {
-        method: 'PUT',
+        credentials: 'include',
         headers: {
             'content-type': 'application/json',
         },
         body: JSON.stringify(recipeData)
     })
-        .then(res => res.json());
+        .then(res => res.json())
+        .catch(err =>
+            console.log(err)
+        );
+}
+
+export const edit = (recipeData, recipeId) => {
+    return fetch(`${API_URL}/edit/${recipeId}`, {
+        method: 'PUT',
+        credentials: 'include',
+        headers: {
+            'content-type': 'application/json',
+        },
+        body: JSON.stringify(recipeData)
+    })
+        .then(res => res.json())
+        .catch(err =>
+            console.log(err)
+        );
 }
 
 export const deleteOne = (recipeId, userId) => {
@@ -48,7 +58,7 @@ export const deleteOne = (recipeId, userId) => {
         headers: {
             'content-type': 'application/json',
         },
-        body: JSON.stringify({userId})
+        body: JSON.stringify({ userId })
     })
         .then(res => res.json());
 }
@@ -65,7 +75,7 @@ export const like = (recipeId, userId) => {
         headers: {
             'content-type': 'application/json',
         },
-        body: JSON.stringify({userId})
+        body: JSON.stringify({ userId })
     })
         .then(res => res.json());
 }
@@ -76,7 +86,7 @@ export const unlike = (recipeId, userId) => {
         headers: {
             'content-type': 'application/json',
         },
-        body: JSON.stringify({userId})
+        body: JSON.stringify({ userId })
     })
         .then(res => res.json());
 }

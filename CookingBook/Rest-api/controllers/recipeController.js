@@ -20,7 +20,7 @@ function getAll(req, res, next) {
 function getMyRcipes(req, res, next) {
     const { userId } = req.body;
 
-    recipeModel.find({userId : {_id : userId}})
+    recipeModel.find({ userId: { _id: userId } })
         .sort({ created_at: -1 })
         .then(recipes => res.json(recipes))
         .catch(next);
@@ -58,7 +58,16 @@ function createRecipes(req, res, next) {
             newRecipe(recipe.id, userId)
                 .then(([_, updatedTheme]) => res.status(200).json(updatedTheme))
         })
-        .catch(next);
+        .catch(err => {
+            if (err) {
+                console.error(err);
+                res
+                    .status(400)
+                    .send({ message: err.message });
+                return;
+            }
+            next(err);
+        });
 }
 
 function editRecipe(req, res, next) {
@@ -66,13 +75,13 @@ function editRecipe(req, res, next) {
     const { name, description, ingredients, userId } = req.body;
 
     // if the userId is not the same as this one of the recipe, the recipe will not be updated
-    recipeModel.findOneAndUpdate({ _id: recipeId, userId }, { name, description, ingredients }, { new: true })
+    recipeModel.findOneAndUpdate({ _id: recipeId, userId }, { name, description, ingredients }, { new: true, runValidators: true })
         .then(updatedRecipe => {
             if (updatedRecipe) {
                 res.status(200).json(updatedRecipe);
             }
             else {
-                res.status(401).json({ isSuccessfully:false, message: `Not allowed!` });
+                res.status(401).json({ isSuccessfully: false, message: `Not allowed!` });
             }
         })
         .catch(next);
@@ -85,7 +94,7 @@ function deleteRecipe(req, res, next) {
     Promise.all([
         recipeModel.findOneAndDelete({ _id: recipeId, userId }),
         userModel.findOneAndUpdate({ _id: userId }, { $pull: { recipes: recipeId } }),
-    ])  
+    ])
         .then(([deletedOne, _, __]) => {
             if (deletedOne) {
                 res.status(200).json(deletedOne)
@@ -104,7 +113,8 @@ function like(req, res, next) {
 
     recipeModel.updateOne({ _id: recipeId }, { $addToSet: { likes: userId } }, { new: true })
         .then((likedRecipe) => {
-             res.status(200).json({ message: 'Liked successful!' }) })
+            res.status(200).json({ message: 'Liked successful!' })
+        })
         .catch(next)
 }
 
@@ -116,7 +126,8 @@ function unlike(req, res, next) {
 
     recipeModel.updateOne({ _id: recipeId }, { $pull: { likes: userId } }, { new: true })
         .then((likedRecipe) => {
-             res.status(200).json({ message: 'Uniked successful!' }) })
+            res.status(200).json({ message: 'Uniked successful!' })
+        })
         .catch(next)
 }
 

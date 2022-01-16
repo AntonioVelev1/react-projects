@@ -14,11 +14,11 @@ function RecipeCard({
                 <div className="post-abs"><p>{recipe.name}</p></div>
                 <img src={recipe.imageURL} alt="" />
             </div>
-            <h3 className="post-title"><Link to={`/details/${recipe._id}`}>{recipe.name}</Link></h3>
+            <h3 className="post-title"><Link to={`/details/${recipe?._id}`}>{recipe?.name}</Link></h3>
             <div className="post-content">
                 {userId && (userId === recipe.userId._id
                     ? <div>
-                        <Link className="details-edit-btn" to={`/edit/${recipe._id}`}>Edit</Link>
+                        <Link className="details-edit-btn" to={`/edit/${recipe?._id}`}>Edit</Link>
                     </div>
                     : ''
                 )}
