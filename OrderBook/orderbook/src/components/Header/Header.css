@@ -1,0 +1,24 @@
+.header {
+    background-color: black;
+    color: white;
+    padding-top: 5px;
+    font-size: 20px;
+}
+
+nav{
+    display: flex;
+    justify-content: space-between;
+}
+
+.title {
+    font-size: 30px;
+    margin-left: 20px;
+}
+
+.currency {
+    margin: 25px 60px 25px 20px;
+}
+
+.currency select {
+    margin-right: 10px;
+}
