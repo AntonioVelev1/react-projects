@@ -15,10 +15,18 @@ nav{
     margin-left: 20px;
 }
 
+.dropdown select {
+    color: black;
+}
+
 .currency {
     margin: 25px 60px 25px 20px;
 }
 
 .currency select {
-    margin-right: 10px;
+    margin-right: 20px;
+}
+
+option {
+    color: black;
 }
