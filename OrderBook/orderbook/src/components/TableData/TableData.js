@@ -6,11 +6,8 @@ function TableData({
             {
                 list.map(subArr => {
                     <tr>
-                        {
-                            subArr.map(x => {
-                                <td key={x}>{x}</td>
-                            })
-                        }
+                        <td>{console.log(subArr[0])}</td>
+                        <td>{subArr[1]}</td>
                     </tr>
                 })
             }

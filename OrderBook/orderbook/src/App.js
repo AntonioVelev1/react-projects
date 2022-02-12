@@ -1,13 +1,13 @@
 import './App.css';
 import Header from './components/Header/Header';
-import Chart from './components/Chart/Chart';
-import Card from './components/Card/Card';
+import * as socketService from './services/socketService';
+
 
 function App() {
+  socketService.openSocets();
   return (
     <div className="App">
         <Header />
-        <Card />
     </div>
   );
 }

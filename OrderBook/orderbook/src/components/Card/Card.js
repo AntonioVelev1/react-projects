@@ -1,33 +1,52 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import TableData from '../TableData/TableData';
+import * as socketService from '../../services/socketService';
 
-let socket = new WebSocket('wss://stream.binance.com:9443/ws/btcusdt@depth10');
+let socket;
 
-function Card() {
+function Card({
+    props
+}) {
     const [bids, setBids] = useState([]);
     const [asks, setAsks] = useState([]);
 
 
-    socket.onopen = function (e) {
-        console.log('Test from open');
-    };
-
-    socket.onmessage = function (e) {
-        const json = JSON.parse(e.data);
-        console.log(json)
-        try {
-            if ((json.lastUpdateId)) {
-                setBids(json.bids.slice(0, 5));
-                setAsks(json.asks.slice(0, 5));
-            }
-        } catch (err) {
-            console.log(err);
-        }
-
-        // console.log('Test from onmessage');
-        // console.log(JSON.parse(e.data));
-        // setState(JSON.parse(e.data));
+       useEffect(() => {
+    if (props === 'BTC/USDT') {
+        socket = socketService.USDT();
     }
+    else if (props === 'BTC/ETH') {
+        socket = socketService.ETH();
+    }
+    }, [props]);
+
+    useEffect(() => {
+        if (socket != (undefined)) {
+            setInterval(() => {
+                socket.onmessage = function (e) {
+                    const json = JSON.parse(e.data);
+                    console.log(json)
+                    try {
+                        if ((json.u)) {
+                            setBids(json.b.slice(0, 1));
+                            setAsks(json.a.slice(0, 1));
+                        }
+                    } catch (err) {
+                        console.log(err);
+                    }
+                }
+            },3000);
+
+        }
+    }, [])
+
+
+    // console.log('Test from onmessage');
+    // console.log(JSON.parse(e.data));
+    // setState(JSON.parse(e.data));
+
+    //return () => socket?.close();
+
 
     return (
         <>
@@ -50,10 +69,12 @@ function Card() {
                     <tbody>
                         <tr>
                             <td>Buyer 1</td>
-                            <td>{asks[0]}</td>
+                            <td>{asks[0]} --------------{asks.length}</td>
+                            <td>{asks[1]}</td>
                         </tr>
                         <tr>
                             <td>Buyer 2</td>
+                            <td>{asks[0]}</td>
                             <td>{asks[1]}</td>
                         </tr>
                     </tbody>
@@ -67,7 +88,16 @@ function Card() {
                         </tr>
                     </thead>
                     <tbody>
-                        <TableData list={bids} />
+                        <tr>
+                            <td>Seller 1</td>
+                            <td>{bids[0]} ---------- {bids.length}</td>
+                            <td>{bids[1]}</td>
+                        </tr>
+                        <tr>
+                            <td>Seller 2</td>
+                            <td>{bids[0]}</td>
+                            <td>{bids[1]}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
