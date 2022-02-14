@@ -51,6 +51,25 @@ export const logout = () => {
         .then(res => localStorage.removeItem('user'));
 };
 
+export const getProfile = async () => {
+    let res = await fetch(`${API_URL}/profile`, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            'content-type': 'application/json',
+        },
+    })
+
+    let result = await res.json();
+
+    if (res.ok) {
+        setLocalStorage(result);
+        return result;
+    }
+
+    throw result.message;
+}
+
 export const setLocalStorage = (result) => {
     let obj = JSON.stringify(result);
     localStorage.setItem('user', obj);

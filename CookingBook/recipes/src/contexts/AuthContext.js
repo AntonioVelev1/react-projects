@@ -1,4 +1,5 @@
 import { useEffect, useState, createContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as authService from '../services/authServices';
 
 export const AuthContext = createContext();
@@ -11,15 +12,26 @@ export const AuthProvider = ({
         email: '',
     });
 
+    let navigate = useNavigate();
+
     useEffect(() => {
-        let userLocal = authService.getLocalStorage();
-        if (!!userLocal) {
-            let currUser = JSON.parse(userLocal);
-            setUser(currUser);
-        }
+        authService.getProfile()
+            .then(res => {
+                console.log(res);
+                if (res.message) {
+                    logout();
+                }
+                else {
+                    login(res);
+                }
+            });
+
+        // if (!!userLocal) {
+        //     let currUser = JSON.parse(userLocal);
+        //     setUser(currUser);
+        // }
     }, []);
 
-    console.log('test');
     const login = (data) => {
         setUser(data);
     }
@@ -30,10 +42,16 @@ export const AuthProvider = ({
             email: '',
         });
     }
-
+    const checkToken = (result) => {
+        if (result.message.includes('token')) {
+            logout();
+            return true;
+        }
+        return false;
+    }
 
     return (
-        <AuthContext.Provider value={{user, login, logout}}>
+        <AuthContext.Provider value={{ user, login, logout, checkToken }}>
             {children}
         </AuthContext.Provider>
     );

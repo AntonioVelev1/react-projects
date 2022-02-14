@@ -20,7 +20,7 @@ function EditRecipe() {
 
     let navigate = useNavigate();
 
-    let { user } = useAuthContext();
+    let { user, checkToken } = useAuthContext();
     let userId = user._id;
 
     useEffect(() => {
@@ -39,19 +39,19 @@ function EditRecipe() {
     function convertMessage(message) {
         let handledMsg = '';
 
-        if(message.includes('name')) {
+        if (message.includes('name')) {
             handledMsg = 'Name is required! ';
         }
 
-        if(message.includes('description')) {
+        if (message.includes('description')) {
             handledMsg += 'Description is required! ';
         }
 
-        if(message.includes('image')) {
+        if (message.includes('image')) {
             handledMsg += 'Image url is required! ';
         }
 
-        if(message.includes('ingredient')) {
+        if (message.includes('ingredient')) {
             handledMsg += 'Ingredients are required! ';
         }
 
@@ -77,11 +77,15 @@ function EditRecipe() {
         },
             recipeId)
             .then(result => {
-                if (result.message) {
+                if (result.message && checkToken(result)) {
+                    navigate('/login');
+
+                } else if (result.message && result.err) {
                     let msg = convertMessage(result.err.message);
                     setErrors([msg]);
                     setShow(true);
-                } else {
+                }
+                else if (typeof result === 'object' && result.message === undefined) {
                     setRecipe(result);
                     navigate(`/details/${recipeId}`);
                 }
@@ -133,7 +137,7 @@ function EditRecipe() {
 
                 <div className="wrap-input100 rs1-wrap-input100 validate-input">
                     <span className="label-input100">ImageURL</span>
-                    <input className="input100" type="text" name="imageURL" placeholder="Enter name" defaultValue={recipe.imageURL} disabled/>
+                    <input className="input100" type="text" name="imageURL" placeholder="Enter name" defaultValue={recipe.imageURL} disabled />
                     <span className="focus-input100"></span>
                 </div>
 
