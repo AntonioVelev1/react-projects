@@ -1,16 +1,37 @@
 import {} from './Login.css';
+import * as authService from '../../services/authService';
+import { useNavigate } from 'react-router-dom';
+
 
 function Login() {
+    const navigate = useNavigate();
+
+    function loginHandler(e) {
+        e.preventDefault();
+
+        let formData = new FormData(e.target);
+
+        let data = {
+            email: formData.get('email'),
+            password: formData.get('password'),
+        }
+
+        authService.login(data)
+            .then(() => {
+                navigate('/');
+            });
+    }
+
     return (
         <>
-            <form className="auth-forms" acceptCharset="utf-8">
+            <form className="auth-forms" acceptCharset="utf-8" onSubmit={loginHandler}>
                 <label>
                     Email
-                    <input type="text" name="search field" placeholder="Your email" id="search-field" className="blink search-field" />
+                    <input type="text" name="email" placeholder="Your email" id="search-field" className="blink search-field" />
                 </label>
                 <label>
                     Password
-                    <input type="password" name="search field" placeholder="Your email" id="search-field" className="blink search-field" />
+                    <input type="password" name="password" placeholder="Your email" id="search-field" className="blink search-field" />
                 </label>
                     <button>Login</button>
             </form>
