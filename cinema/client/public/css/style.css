@@ -134,6 +134,9 @@ h1#logo a {
 	clear:right;
 	padding-top:28px;
 	padding-bottom:47px;
+	border-bottom:1px dashed #666;
+	width: 100%;
+	margin-bottom: 20px;
 }
 #navigation ul {
 	list-style:none;
@@ -148,6 +151,8 @@ h1#logo a {
 	font-weight:bold;
 	color:#fff;
 	text-decoration:none;
+	padding: 10px;
+	background-color: green;
 }
 #navigation ul li a.active, #navigation ul li a:hover {
 	color:#d91d2a;
