@@ -35,6 +35,10 @@ const userSchema = new mongoose.Schema({
             message: props => `${props.value} must contains only latin letters and digits!`
         },
     },
+    rates: [{
+        type: ObjectId,
+        ref: "rate"
+    }],
     favourites: [{
         type: ObjectId,
         ref: "film"

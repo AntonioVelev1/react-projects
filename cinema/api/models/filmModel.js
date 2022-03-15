@@ -14,13 +14,14 @@ const filmSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    rate: {
-        type: Number,
-    },
-    userId: {
+    rates: [{
+        type: ObjectId,
+        ref: "rate"
+    }],
+    userId: [{
         type: ObjectId,
         ref: "User"
-    },
+    }],
 }, { timestamps: { createdAt: 'created_at' } });
 
 module.exports = mongoose.model('film', filmSchema);

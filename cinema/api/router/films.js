@@ -7,7 +7,7 @@ const { filmController } = require('../controllers');
 
 router.get('/', filmController.getLatestsfilms);
 router.get('/all', filmController.getAll);
-router.post('/myfilms', auth(), filmController.getMyFilm);
+router.post('/getFilm', auth(), filmController.getFilm);
 router.put('/edit/:filmId', auth(), filmController.editfilm);
 
 

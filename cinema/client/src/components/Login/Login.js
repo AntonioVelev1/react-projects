@@ -1,10 +1,12 @@
 import {} from './Login.css';
 import * as authService from '../../services/authService';
 import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../../hooks/useAuthContenxt';
 
 
 function Login() {
     const navigate = useNavigate();
+    const { login } = useAuthContext();
 
     function loginHandler(e) {
         e.preventDefault();
@@ -17,8 +19,13 @@ function Login() {
         }
 
         authService.login(data)
-            .then(() => {
-                navigate('/');
+            .then((res) => {
+                if(res.errors) {
+                    navigate('/login');
+                } else {
+                    login(res);
+                    navigate('/');
+                }
             });
     }
 

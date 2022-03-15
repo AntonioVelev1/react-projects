@@ -1,7 +1,16 @@
-function FilmCard() {
+import { Link } from 'react-router-dom';
+
+function FilmCard({
+    film
+}) {
     return (
         <div className="movie">
-            <div className="movie-image"> <span className="play"><span className="name">X-MANnnnnnnnnnnn</span></span> <a href="#"><img src="images/movie1.jpg" alt="" /></a> </div>
+            <div className="movie-image">
+                <Link to={`/details/${film._id}`}>
+                    <span className="play"><span className="name">{film.name}</span></span>
+                    <img src={film.imageURL} alt="" />
+                </Link>
+            </div>
             <div className="rating">
                 <p>RATING</p>
                 <div className="stars">
