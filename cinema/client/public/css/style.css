@@ -107,6 +107,10 @@ h1#logo a {
 	text-indent: -4000px;
 }
 
+.welcome p{
+	font-size: 20px;
+}
+
 .social {
 	float: right;
 	width: 160px;
@@ -334,11 +338,12 @@ h1#logo a {
 	float: left;
 	width: 152px;
 	padding-top: 8px;
+	margin-top: 15px;
 }
 
 .rating p {
 	float: left;
-	font-size: 10px;
+	font-size: 14px;
 	color: #fff;
 	font-weight: bold;
 }

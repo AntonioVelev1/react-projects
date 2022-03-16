@@ -64,7 +64,7 @@ function Details() {
                     </div>
                 </article>
             </section>
-            <BaseRating />
+            <BaseRating movie={movie}/>
         </>
     );
 }

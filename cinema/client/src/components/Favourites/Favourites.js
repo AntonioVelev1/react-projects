@@ -9,7 +9,7 @@ function Favourites() {
     const { user } = useAuthContext();
 
     useEffect(() => {
-        movieService.getFavourites(user.id)
+        movieService.getFavourites(user._id)
             .then(movies => {
                 setFavouriteMovies(movies);
             })
@@ -22,7 +22,7 @@ function Favourites() {
                 <p className="text-right"><Link to="#">See all</Link></p>
             </div>
             <div className="movie-list">
-                { favouriteMovies.length > 0
+                { favouriteMovies?.length > 0
                   ? favouriteMovies.map(x => <MovieCard key={x._id} movie={x} />)
                   : <p>No movies in database</p>
                 }
