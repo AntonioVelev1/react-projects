@@ -1,9 +1,9 @@
 const authController = require('./auth');
-const filmController = require('./filmController');
+const movieController = require('./movieController');
 const rateController = require('./rateController');
 
 module.exports = {
     authController,
-    filmController,
+    movieController,
     rateController,
 }

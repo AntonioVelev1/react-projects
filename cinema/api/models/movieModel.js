@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { ObjectId } = mongoose.Schema.Types;
 
-const filmSchema = new mongoose.Schema({
+const movieSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -24,4 +24,4 @@ const filmSchema = new mongoose.Schema({
     }],
 }, { timestamps: { createdAt: 'created_at' } });
 
-module.exports = mongoose.model('film', filmSchema);
+module.exports = mongoose.model('movie', movieSchema);

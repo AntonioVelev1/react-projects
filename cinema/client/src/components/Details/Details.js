@@ -1,36 +1,66 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import BaseRating from "./Raiting";
 import { } from './Details.css';
-import * as filmService from '../../services/filmService';
+import * as movieService from '../../services/movieService';
+import { useAuthContext } from "../../hooks/useAuthContenxt";
 
 function Details() {
-    const [film, setFilm] = useState({});
+    const { movieId } = useParams();
+    const [movie, setMovie] = useState({});
+    const { user } = useAuthContext();
 
     useEffect(() => {
-        filmService.getFilm()
+        movieService.getMovie(movieId)
             .then((res) => {
-                setFilm(res);
+                setMovie(res);
             });
     }, []);
-    
+
+    function addToFavouritesHandler(e) {
+        e.preventDefault();
+
+        movieService.addToFavourites(movieId, user._id)
+            .then((res) => {
+                if (!res.message) {
+                    setMovie(res);
+                }
+            });
+    }
+
+    function removeFromFavouritesHandler(e) {
+        e.preventDefault();
+
+        movieService.removeFromFavourites(movieId, user._id)
+            .then((res) => {
+                if (!res.message) {
+                    setMovie(res);
+                }
+            });
+    }
+
     return (
         <>
             <section className="details-page">
-                <section className="film-title">
-                    <h1>{film.name}</h1>
+                <section className="movie-title">
+                    <h1>{movie.name}</h1>
                 </section>
                 <section className="details-content">
                     <article className="details-img">
-                        <img src={film.imageURL} alt="" />
+                        <img src={movie.imageURL} alt="" />
                     </article>
                     <article className="details-description">
-                        <p>{film.description}</p>
+                        <p>{movie.description}</p>
                     </article>
                 </section>
                 <article>
                     <div className="details-btns">
-                        <button className="details-btn">Add to favourites</button>
-                        <button className="details-btn">Remove from favourites</button>
+                        {user._id !== ''
+                            ? (movie?.userId?.includes(user._id)
+                                ? <button className="details-btn remove" onClick={removeFromFavouritesHandler}>Remove from favourites</button>
+                                : <button className="details-btn add" onClick={addToFavouritesHandler}>Add to favourites</button>)
+                            : null
+                        }
                     </div>
                 </article>
             </section>

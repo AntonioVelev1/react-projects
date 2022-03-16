@@ -28,7 +28,7 @@ function Header() {
             <div id="navigation">
                 <ul>
                     <li><Link to="/">HOME</Link></li>
-                    {user?.id ?
+                    {user?.email ?
                         userNavigation
                         : guestNavigation
                     }

@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom';
 
-function FilmCard({
-    film
+function MovieCard({
+    movie
 }) {
     return (
         <div className="movie">
             <div className="movie-image">
-                <Link to={`/details/${film._id}`}>
-                    <span className="play"><span className="name">{film.name}</span></span>
-                    <img src={film.imageURL} alt="" />
+                <Link to={`/details/${movie?._id}`}>
+                    <span className="play"><span className="name">{movie.name}</span></span>
+                    <img src={movie.imageURL} alt="" />
                 </Link>
             </div>
             <div className="rating">
@@ -21,4 +21,4 @@ function FilmCard({
     );
 }
 
-export default FilmCard;
+export default MovieCard;

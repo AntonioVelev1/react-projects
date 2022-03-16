@@ -20,7 +20,7 @@ export const login = async (userData) => {
 
         if (res.ok) {
             Cookies.set('token', result.token);
-            return parseToken(result.token);
+            return result.user;
         }
     }
     catch (err) {
@@ -44,7 +44,7 @@ export const register = async (userData) => {
 
         if (res.ok) {
             Cookies.set('token', result.token);
-            return parseToken(result.token);
+            return result.user;
         }
     }
     catch (err) {
@@ -75,8 +75,27 @@ export const logout = async () => {
     }
 };
 
+export const getUserById = async (userId) => {
+    try {
+        let res = await fetch(`${API_URL}/getUserById`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify({ userId })
+        });
 
-export const getUser = () => {
+        let result = await res.json();
+
+        return result;
+    }
+    catch (err) {
+        return err;
+    }
+}
+
+export const userFromToken = () => {
     return parseToken();
 }
 
@@ -91,7 +110,7 @@ function parseToken() {
     try {
         const parsedToken = JSON.parse(atob(token.split('.')[1]));
         return {
-            id: parsedToken.id,
+            _id: parsedToken.id,
             //username: parsedToken.unique_name,
         }
     } catch (error) {

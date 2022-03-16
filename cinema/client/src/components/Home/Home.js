@@ -1,13 +1,12 @@
-import Favourites from "../Favourites/Favourites";
+import All from "../All/All";
 
 function Home() {
     return (
         <>
-           
             <div>
                 <p>Hello user!</p>
             </div>
-            <Favourites />
+            <All />
         </>
     );
 }

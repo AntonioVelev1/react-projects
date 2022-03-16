@@ -4,7 +4,7 @@ import { useAuthContext } from "../../../hooks/useAuthContenxt";
 function NotLoggedUsersRoute() {
     const { user } = useAuthContext();
 
-    return user.id === '' ? <Outlet /> : <Navigate to="/" />
+    return user._id === '' ? <Outlet /> : <Navigate to="/" />
 }
 
 export default NotLoggedUsersRoute;

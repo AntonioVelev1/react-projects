@@ -91,9 +91,17 @@ function logout(req, res) {
         .catch(err => res.send(err));
 }
 
+function getUserById(req, res, next) {
+    const { userId } = req.body;
+
+    userModel.findOne({ _id: userId }, { password: 0, __v: 0 }) //finding by Id and returning without password and __v
+        .then(user => { res.status(200).json(user) })
+        .catch(next);
+}
 
 module.exports = {
     login,
     register,
     logout,
+    getUserById
 }

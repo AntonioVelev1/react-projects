@@ -39,9 +39,9 @@ const userSchema = new mongoose.Schema({
         type: ObjectId,
         ref: "rate"
     }],
-    favourites: [{
+    movies: [{
         type: ObjectId,
-        ref: "film"
+        ref: "movie"
     }]
 }, { timestamps: { createdAt: 'created_at' } });
 

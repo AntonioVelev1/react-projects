@@ -23,7 +23,7 @@ function App() {
             <Routes>
               <Route path="*" element={<NotFound />} />
               <Route path="/" element={<Home />} />
-              <Route path="/details/:filmId" element={<Details />} />
+              <Route path="/details/:movieId" element={<Details />} />
               <Route element={<PrivateRoute />}>
                 <Route path="/logout" element={<Logout />} />
                 <Route path="/favourites" element={<Favourites />} />

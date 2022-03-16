@@ -1,11 +1,11 @@
-const { rateModel, userModel, filmModel } = require('../models');
+const { rateModel, userModel, movieModel } = require('../models');
 
 function createRate(req, res, next) {
-    return rateModel.create({ rate, userId, filmId })
+    return rateModel.create({ rate, userId, movieId })
         .then(rate => {
             return Promise.all([
-                userModel.updateOne({ _id: userId }, { $push: { rates: rate._id }, $addToSet: { films: filmId } }),
-                filmModel.findByIdAndUpdate({ _id: filmId }, { $push: { rates: rate._id } }, { new: true })
+                userModel.updateOne({ _id: userId }, { $push: { rates: rate._id }, $addToSet: { movies: movieId } }),
+                movieModel.findByIdAndUpdate({ _id: movieId }, { $push: { rates: rate._id } }, { new: true })
             ])
         })
 }

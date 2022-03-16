@@ -8,14 +8,14 @@ import { useAuthContext } from '../../hooks/useAuthContenxt';
 import * as rateService from '../../services/rateService';
 
 export default function BasicRating({
-    filmId
+    movieId
 }) {
     const { user } = useAuthContext();
 
     const [rate, setRate] = React.useState(0);
 
     useEffect(() => {
-        rateService.getRate({ userId: user.id, filmId: filmId});
+        rateService.getRate({ userId: user.id, movieId: movieId});
     }, []);
     
     return (

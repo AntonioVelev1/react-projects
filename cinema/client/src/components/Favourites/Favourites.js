@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react";
-import FilmCard from "../FilmCard/FilmCard";
+import MovieCard from "../MovieCard/MovieCard";
 import { Link } from 'react-router-dom';
-import * as filmService from '../../services/filmService';
+import * as movieService from '../../services/movieService';
+import { useAuthContext } from "../../hooks/useAuthContenxt";
 
 function Favourites() {
-    const [films, setFilms] = useState([]);
+    const [favouriteMovies, setFavouriteMovies] = useState([]);
+    const { user } = useAuthContext();
 
     useEffect(() => {
-        filmService.getAll()
-            .then(films => {
-                setFilms(films);
+        movieService.getFavourites(user.id)
+            .then(movies => {
+                setFavouriteMovies(movies);
             })
             .catch();
     }, []);
@@ -20,7 +22,10 @@ function Favourites() {
                 <p className="text-right"><Link to="#">See all</Link></p>
             </div>
             <div className="movie-list">
-                {films.map(x => <FilmCard key={x._id} film={{ x }} />)}
+                { favouriteMovies.length > 0
+                  ? favouriteMovies.map(x => <MovieCard key={x._id} movie={x} />)
+                  : <p>No movies in database</p>
+                }
             </div>
             <div className="cl">&nbsp;</div>
         </div>

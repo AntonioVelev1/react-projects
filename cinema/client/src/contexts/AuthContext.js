@@ -8,24 +8,29 @@ export const AuthProvider = ({
     children
 }) => {
     const [user, setUser] = useState({
-        id: '',
-        //email: '',
+        _id: '',
     });
 
     useEffect(() => {
-        const user = authService.getUser();
-        if (user) {
-            login(user)
-        } else {
-            logout();
+        const userFromToken = authService.userFromToken();
+
+        if (!!userFromToken && user._id === '') {
+            authService.getUserById(userFromToken._id)
+                .then((user) => {
+                    if (user) {
+                        login(user)
+                    } else {
+                        logout();
+                    }
+                })
         }
+
     }, []);
 
     const login = (data) => setUser(data);
 
     const logout = () => setUser({
-        id: '',
-        //email: '',
+        _id: '',
     });
 
     return (

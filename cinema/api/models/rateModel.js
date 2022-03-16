@@ -9,9 +9,9 @@ const rateSchema = new mongoose.Schema({
         type: ObjectId,
         ref: "User"
     },
-    filmId: {
+    movieId: {
         type: ObjectId,
-        ref: "Film"
+        ref: "Movie"
     },
 }, { timestamps: { createdAt: 'created_at' } });
 
