@@ -11,7 +11,4 @@ router.post('/favourites', movieController.getFavourites);
 router.get('/getMovie/:movieId', movieController.getMovie);
 router.put('/edit/:movieId', auth(), movieController.editMovie);
 
-router.put('/addToFavourites/:movieId', auth(), movieController.addToFavourites);
-router.put('/removeFromFavourites/:movieId', auth(), movieController.removeFromFavourites);
-
 module.exports = router

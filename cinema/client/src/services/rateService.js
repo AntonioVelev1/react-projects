@@ -65,3 +65,25 @@ export const updateRate = async (data) => {
         return err;
     }
 }
+
+export const deleteRate = async (data) => {
+    try {
+        let res = await fetch(`${API_URL}/deleteRate`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+
+        let result = await res.json();
+
+        if (res.ok) {
+            return result
+        }
+    }
+    catch (err) {
+        return err;
+    }
+}

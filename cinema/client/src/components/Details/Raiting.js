@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 
@@ -40,7 +41,7 @@ export default function BasicRating({
         if (dbRate.rate === 0) {
             rateService.createRate({ rate: currentRate, userId: user._id, movieId: movie._id })
                 .then((res) => {
-                    if (res != undefined) {
+                    if (res !== undefined) {
                         setRate(res.rate);
                         setdbRate(res);
                     }
@@ -48,12 +49,24 @@ export default function BasicRating({
         } else {
             rateService.updateRate({ rateId: dbRate._id, rate: currentRate, userId: user._id, movieId: movie._id })
                 .then((res) => {
-                    if (res != undefined) {
+                    if (res !== undefined) {
                         setRate(res.rate);
                         setdbRate(res);
                     }
                 });
         }
+    }
+
+    function deleteRateHandler(e) {
+        e.preventDefault();
+
+        rateService.deleteRate({ rateId: dbRate._id, userId: user._id, movieId: movie._id })
+            .then((res) => {
+                if (res !== undefined) {
+                    setRate(0);
+                    setdbRate({ rate: 0, userId: 0, movieId: 0 });
+                }
+            });
     }
 
     return (
@@ -64,6 +77,7 @@ export default function BasicRating({
                 value={rate}
                 onChange={changeRateHandler}
             />
+            <p className="text-left"><Link to="#" onClick={deleteRateHandler}>Remove Rate</Link></p>
         </div>
     );
 }

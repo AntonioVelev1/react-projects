@@ -1,12 +1,23 @@
-import { } from '../Login/Login.css';
-import * as authService from '../../services/authService';
-
 import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../../hooks/useAuthContenxt';
+import * as authService from '../../services/authService';
+import { } from '../Login/Login.css';
+
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { userRegisterSchema } from '../../validatons/UserValidation';
+
 
 function Register() {
+    const { login } = useAuthContext();
     const navigate = useNavigate();
 
-    function registerHandler(e) {
+    const  { register, handleSubmit, formState: { errors } } = useForm({
+        mode: 'onBlur',
+        resolver: yupResolver(userRegisterSchema),
+    });
+
+    function registerHandler(_, e) {
         e.preventDefault();
 
         let formData = new FormData(e.target);
@@ -18,28 +29,37 @@ function Register() {
         }
 
         authService.register(data)
-            .then(() => {
-                navigate('/');
+            .then((res) => {
+                if(res.errors) {
+                    navigate('/');
+                } else {
+                    login(data);
+                    navigate('/');
+                }
             });
     }
 
     return (
-        <form className="auth-forms" acceptCharset="utf-8" onSubmit={registerHandler}>
+        <form className="auth-forms" acceptCharset="utf-8" onSubmit={handleSubmit(registerHandler)}>
             <label>
                 Username
-                <input type="text" name="username" placeholder="Your username" id="search-field" className="blink search-field" />
+                <input {...register("username")} type="text" name="username" placeholder="Your username" id="search-field" className="blink search-field" />
+                {errors.username?.message && <p className="validation-error">{errors.username?.message}</p>}
             </label>
             <label>
                 Email
-                <input type="text" name="email" placeholder="Your email" id="search-field" className="blink search-field" />
+                <input {...register("email")} type="text" name="email" placeholder="Your email" id="search-field" className="blink search-field" />
+                {errors.email?.message && <p className="validation-error">{errors.email?.message}</p>}
             </label>
             <label>
                 Password
-                <input type="password" name="password" placeholder="Password" id="search-field" className="blink search-field" />
+                <input {...register("password")} type="password" name="password" placeholder="Password" id="search-field" className="blink search-field" />
+                {errors.password?.message && <p className="validation-error">{errors.password?.message}</p>}
             </label>
             <label>
-                Password
-                <input type="password" name="rePassword" placeholder="Repet Password" id="search-field" className="blink search-field" />
+                Repeat Password
+                <input {...register("rePassword")} type="password" name="rePassword" placeholder="Repet Password" id="search-field" className="blink search-field" />
+                {errors.rePassword?.message && <p className="validation-error">{errors.rePassword?.message}</p>}
             </label>
             <button type='submit'>Register</button>
         </form>

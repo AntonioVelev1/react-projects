@@ -44,7 +44,7 @@ export const register = async (userData) => {
 
         if (res.ok) {
             Cookies.set('token', result.token);
-            return result.user;
+            return result.createdUser;
         }
     }
     catch (err) {
@@ -89,6 +89,50 @@ export const getUserById = async (userId) => {
         let result = await res.json();
 
         return result;
+    }
+    catch (err) {
+        return err;
+    }
+}
+
+export const addToFavourites = async (data) => {
+    try {
+        let res = await fetch(`${API_URL}/addToFavourites`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+
+        let result = await res.json();
+
+        if (res.ok) {
+            return result;
+        }
+    }
+    catch (err) {
+        return err;
+    }
+}
+
+export const removeFromFavourites = async (movieId, userId) => {
+    try {
+        let res = await fetch(`${API_URL}/removeFromFavourites`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify({ userId, movieId })
+        });
+
+        let result = await res.json();
+
+        if (res.ok) {
+            return result;
+        }
     }
     catch (err) {
         return err;

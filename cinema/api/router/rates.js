@@ -8,6 +8,6 @@ const { rateController } = require('../controllers');
 router.post('/createRate', auth(), rateController.createRate);
 router.post('/getRate', auth(), rateController.getRate);
 router.post('/updateRate', auth(), rateController.updateRate);
-router.post('/delete/:rateId', auth(), rateController.deleteRate);
+router.post('/deleteRate', auth(), rateController.deleteRate);
 
 module.exports = router

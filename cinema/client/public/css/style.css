@@ -61,8 +61,11 @@ textarea {
 	text-align: right;
 }
 
+.text-left {
+	text-align: left;
+}
+
 h2 {
-	font-size: 10px;
 	color: #f2a223;
 	font-weight: bold;
 }
@@ -279,7 +282,7 @@ h1#logo a {
 }
 
 .box .movie-list {
-		
+	margin-top: 10px;
 }
 
 .box .movie {
@@ -467,4 +470,9 @@ h1#logo a {
 
 #footer .rf {
 	float: right;
+}
+
+.validation-error {
+	color: red;
+    margin-bottom: 10px;
 }

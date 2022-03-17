@@ -99,9 +99,40 @@ function getUserById(req, res, next) {
         .catch(next);
 }
 
+function addToFavourites(req, res, next) {
+    const {  movieId, userId } = req.body;
+    userModel.findByIdAndUpdate({ _id: userId }, { $push: { movies: movieId } }, { new: true })
+        .then((user) => {
+            if (user) {
+                res.status(200).json({ isSuccessfully: true, message: `Successfully added to favourites` });
+            }
+            else {
+                res.status(401).json({ isSuccessfully: false, message: `Not allowed!` });
+            }
+        })
+        .catch(next);
+}
+
+function removeFromFavourites(req, res, next) {
+    const { userId, movieId } = req.body;
+
+    userModel.findByIdAndUpdate({ _id: userId }, { $pull: { movies: movieId } }, { new: true })
+        .then((user) => {
+            if (user) {
+                res.status(200).json({ isSuccessfully: true, message: `Successfully remove to favourites` });
+            }
+            else {
+                res.status(401).json({ isSuccessfully: false, message: `Not allowed!` });
+            }
+        })
+        .catch(next);
+}
+
 module.exports = {
     login,
     register,
     logout,
-    getUserById
+    getUserById,
+    addToFavourites,
+    removeFromFavourites
 }

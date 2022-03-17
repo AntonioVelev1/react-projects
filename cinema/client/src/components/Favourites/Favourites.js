@@ -9,22 +9,24 @@ function Favourites() {
     const { user } = useAuthContext();
 
     useEffect(() => {
-        movieService.getFavourites(user._id)
-            .then(movies => {
-                setFavouriteMovies(movies);
-            })
-            .catch();
+        if (user._id !== '') {
+            movieService.getFavourites({ movies: user.movie })
+                .then(movies => {
+                    setFavouriteMovies(movies);
+                })
+                .catch();
+        }
     }, []);
     return (
         <div className="box">
             <div className="head">
-                <h2>TOP RATED</h2>
+                <h2>FAVOURITES</h2>
                 <p className="text-right"><Link to="#">See all</Link></p>
             </div>
             <div className="movie-list">
-                { favouriteMovies?.length > 0
-                  ? favouriteMovies.map(x => <MovieCard key={x._id} movie={x} />)
-                  : <p>No movies in database</p>
+                {favouriteMovies?.length > 0
+                    ? favouriteMovies.map(x => <MovieCard key={x._id} movie={x} />)
+                    : <p>You have no favourite movies</p>
                 }
             </div>
             <div className="cl">&nbsp;</div>

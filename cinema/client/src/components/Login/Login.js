@@ -1,14 +1,22 @@
-import {} from './Login.css';
-import * as authService from '../../services/authService';
 import { useNavigate } from 'react-router-dom';
+import * as authService from '../../services/authService';
 import { useAuthContext } from '../../hooks/useAuthContenxt';
+import { } from './Login.css';
 
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { userLoginSchema } from '../../validatons/UserValidation';
 
 function Login() {
     const navigate = useNavigate();
     const { login } = useAuthContext();
 
-    function loginHandler(e) {
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        mode: "onBlur",
+        resolver: yupResolver(userLoginSchema),
+    });
+
+    function loginHandler(_, e) {
         e.preventDefault();
 
         let formData = new FormData(e.target);
@@ -20,7 +28,7 @@ function Login() {
 
         authService.login(data)
             .then((res) => {
-                if(res.errors) {
+                if (res.errors) {
                     navigate('/login');
                 } else {
                     login(res);
@@ -31,16 +39,18 @@ function Login() {
 
     return (
         <>
-            <form className="auth-forms" acceptCharset="utf-8" onSubmit={loginHandler}>
+            <form className="auth-forms" acceptCharset="utf-8" onSubmit={handleSubmit(loginHandler)}>
                 <label>
                     Email
-                    <input type="text" name="email" placeholder="Your email" id="search-field" className="blink search-field" />
+                    <input {...register("email")} type="email" name="email" placeholder="Your email" id="search-field" className="blink search-field" />
+                    {errors.email?.message && <p className="validation-error">{errors.email?.message}</p>}
                 </label>
                 <label>
                     Password
-                    <input type="password" name="password" placeholder="Your email" id="search-field" className="blink search-field" />
+                    <input  {...register("password")} type="password" name="password" placeholder="Your email" id="search-field" className="blink search-field" />
+                    {errors.password?.message && <p className="validation-error">{errors.password?.message}</p>}
                 </label>
-                    <button>Login</button>
+                <button>Login</button>
             </form>
         </>
     );

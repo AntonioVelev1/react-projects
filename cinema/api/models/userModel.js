@@ -39,10 +39,7 @@ const userSchema = new mongoose.Schema({
         type: ObjectId,
         ref: "rate"
     }],
-    movies: [{
-        type: ObjectId,
-        ref: "movie"
-    }]
+    movies: []
 }, { timestamps: { createdAt: 'created_at' } });
 
 userSchema.methods = {

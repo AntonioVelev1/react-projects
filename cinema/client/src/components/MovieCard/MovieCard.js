@@ -6,9 +6,9 @@ function MovieCard({
     return (
         <div className="movie">
             <div className="movie-image">
-                <Link to={`/details/${movie?._id}`}>
-                    <span className="play"><span className="name">{movie.name}</span></span>
-                    <img src={movie.imageURL} alt="" />
+                <Link to={`/details/${movie?.id}`}>
+                    <span className="play"><span className="name">{movie?.name}</span></span>
+                    <img src={movie?.image?.medium} alt="" />
                 </Link>
             </div>
             <div className="rating">
@@ -16,7 +16,7 @@ function MovieCard({
                 <div className="stars">
                     <div className="stars-in"> </div>
                 </div>
-                <span className="comments">12</span> </div>
+                <span className="comments">{movie?.rating?.average || 0}</span> </div>
         </div>
     );
 }

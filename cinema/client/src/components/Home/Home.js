@@ -1,14 +1,21 @@
-import All from "../All/All";
+import Favourites from "../Favourites/Favourites";
 import { useAuthContext } from "../../hooks/useAuthContenxt";
+import { useMovieContext } from "../../hooks/useMovieContext";
+
+import SearchResult from "../SearchResult/SearchResult";
 
 function Home() {
     const { user } = useAuthContext();
+    const { movies } = useMovieContext();
     return (
         <>
             <div className="welcome">
                 <p>Hello {user.username}!</p>
             </div>
-            <All />
+            {movies === {}
+                ? <Favourites />
+                : <SearchResult />
+            }
         </>
     );
 }
