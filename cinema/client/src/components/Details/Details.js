@@ -9,16 +9,12 @@ import { useAuthContext } from "../../hooks/useAuthContenxt";
 function Details() {
     const { movieId } = useParams();
     const [movie, setMovie] = useState({});
-    const [isAdded, setIsAdded] = useState(false);
-    const { user } = useAuthContext();
+    const { user, refreshUser } = useAuthContext();
 
     useEffect(() => {
         movieService.getMovie(movieId)
             .then((res) => {
                 setMovie(res);
-                if (user?.movies?.includes(res.id.toString())) {
-                    setIsAdded(true);
-                }
             });
     }, []);
 
@@ -30,7 +26,7 @@ function Details() {
         authService.addToFavourites(data)
             .then((res) => {
                 if (res.isSuccessfully) {
-                    setIsAdded(true);
+                    refreshUser();
                 }
             });
     }
@@ -41,7 +37,7 @@ function Details() {
         authService.removeFromFavourites(movieId, user._id)
             .then((res) => {
                 if (res.isSuccessfully) {
-                    setIsAdded(false);
+                    refreshUser();
                 }
             });
     }
@@ -63,7 +59,7 @@ function Details() {
                 <article>
                     <div className="details-btns">
                         {user._id !== ''
-                            ? (isAdded
+                            ? (user?.movies?.includes(movie?.id?.toString())
                                 ? <button className="details-btn remove" onClick={removeFromFavouritesHandler}>Remove from favourites</button>
                                 : <button className="details-btn add" onClick={addToFavouritesHandler}>Add to favourites</button>)
                             : null

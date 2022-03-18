@@ -8,7 +8,7 @@ function MovieCard({
             <div className="movie-image">
                 <Link to={`/details/${movie?.id}`}>
                     <span className="play"><span className="name">{movie?.name}</span></span>
-                    <img src={movie?.image?.medium} alt="" />
+                    <img src={movie?.image?.medium || 'https://media.istockphoto.com/photos/popcorn-and-clapperboard-picture-id1191001701?k=20&m=1191001701&s=612x612&w=0&h=uDszifNzvgeY5QrPwWvocFOUCw8ugViuw-U8LCJ1wu8='} alt="" />
                 </Link>
             </div>
             <div className="rating">

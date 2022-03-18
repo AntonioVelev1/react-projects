@@ -17,8 +17,8 @@ export default function BasicRating({
     const [dbRate, setdbRate] = useState({ rate: 0, userId: 0, movieId: 0 });
 
     useEffect(() => {
-        if (valid(user?._id) && valid(movie?._id)) {
-            rateService.getRate({ userId: user?._id, movieId: movie?._id })
+        if (valid(user?._id) && valid(movie?.id)) {
+            rateService.getRate({ userId: user?._id, movieId: movie?.id })
                 .then(res => {
                     if (valid(res)) {
                         setRate(res.rate);
@@ -39,7 +39,7 @@ export default function BasicRating({
         let currentRate = Number(e.target.value);
 
         if (dbRate.rate === 0) {
-            rateService.createRate({ rate: currentRate, userId: user._id, movieId: movie._id })
+            rateService.createRate({ rate: currentRate, userId: user._id, movieId: movie.id })
                 .then((res) => {
                     if (res !== undefined) {
                         setRate(res.rate);
@@ -47,7 +47,7 @@ export default function BasicRating({
                     }
                 });
         } else {
-            rateService.updateRate({ rateId: dbRate._id, rate: currentRate, userId: user._id, movieId: movie._id })
+            rateService.updateRate({ rateId: dbRate._id, rate: currentRate, userId: user._id, movieId: movie.id })
                 .then((res) => {
                     if (res !== undefined) {
                         setRate(res.rate);
@@ -60,7 +60,7 @@ export default function BasicRating({
     function deleteRateHandler(e) {
         e.preventDefault();
 
-        rateService.deleteRate({ rateId: dbRate._id, userId: user._id, movieId: movie._id })
+        rateService.deleteRate({ rateId: dbRate._id, userId: user._id, movieId: movie.id })
             .then((res) => {
                 if (res !== undefined) {
                     setRate(0);

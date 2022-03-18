@@ -7,15 +7,13 @@ import SearchResult from "../SearchResult/SearchResult";
 function Home() {
     const { user } = useAuthContext();
     const { movies } = useMovieContext();
-    return (
+    return ( 
         <>
             <div className="welcome">
                 <p>Hello {user.username}!</p>
             </div>
-            {movies === {}
-                ? <Favourites />
-                : <SearchResult />
-            }
+            <Favourites />
+            <SearchResult />
         </>
     );
 }

@@ -1,5 +1,3 @@
-const API_URL = 'http://localhost:3030/api/movies';
-
 export const getMovie = async (movieId) => {
     try {
         let res = await fetch(`http://api.tvmaze.com/shows/${movieId}`);
@@ -15,15 +13,13 @@ export const getMovie = async (movieId) => {
     }
 }
 
-export const getFavourites = async (userId) => {
+export const getFromFavourites = async (movieId) => {
     try {
-        let res = await fetch(`${API_URL}/favourites`, {
-            method: 'POST',
-            credentials: 'include',
+        let res = await fetch(`http://api.tvmaze.com/shows/${movieId}`, {
+            mode: 'no-cors',
             headers: {
                 'content-type': 'application/json',
-            },
-            body: JSON.stringify({ userId })
+            }
         });
 
         let result = await res.json();

@@ -114,6 +114,18 @@ h1#logo a {
 	font-size: 20px;
 }
 
+.welcome-content {
+	font-size: 20px;
+	margin: 50px auto;
+	max-width: 700px;
+}
+
+.welcome-content p {
+	text-align: center;
+	color: white;
+	font-weight: bold;
+}
+
 .social {
 	float: right;
 	width: 160px;
@@ -262,7 +274,6 @@ h1#logo a {
 	border-bottom: 1px dashed #413e3e;
 }
 
-#content {}
 
 .box {
 	width: 980x;
@@ -282,7 +293,7 @@ h1#logo a {
 }
 
 .box .movie-list {
-	margin-top: 10px;
+	margin-top: 15px;
 }
 
 .box .movie {
@@ -305,8 +316,8 @@ h1#logo a {
 .movie-image a {
 	float: left;
 	display: inline;
-	width: 152px;
-	height: 214px;
+	width: 180px;
+	height: 230px;
 	position: relative;
 	z-index: 2;
 }

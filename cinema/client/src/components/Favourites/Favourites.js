@@ -10,11 +10,16 @@ function Favourites() {
 
     useEffect(() => {
         if (user._id !== '') {
-            movieService.getFavourites({ movies: user.movie })
-                .then(movies => {
-                    setFavouriteMovies(movies);
-                })
-                .catch();
+            for (const movieId of user.movies) {
+                movieService.getMovie(movieId)
+                    .then(movie => {
+                        setFavouriteMovies((state) => [
+                            ...state,
+                            movie
+                        ]);
+                    })
+                    .catch();
+            }
         }
     }, []);
     return (
@@ -25,7 +30,7 @@ function Favourites() {
             </div>
             <div className="movie-list">
                 {favouriteMovies?.length > 0
-                    ? favouriteMovies.map(x => <MovieCard key={x._id} movie={x} />)
+                    ? favouriteMovies.map((x, index) => <MovieCard key={index} movie={x} />)
                     : <p>You have no favourite movies</p>
                 }
             </div>

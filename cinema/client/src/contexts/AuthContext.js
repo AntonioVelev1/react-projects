@@ -29,12 +29,25 @@ export const AuthProvider = ({
 
     const login = (data) => setUser(data);
 
+    const refreshUser = () => {
+        const userFromToken = authService.userFromToken();
+
+        authService.getUserById(userFromToken._id)
+            .then((user) => {
+                if (user) {
+                    login(user);
+                } else {
+                    logout();
+                }
+            })
+    }
+
     const logout = () => setUser({
         _id: '',
     });
 
     return (
-        <AuthContext.Provider value={{ user, login, logout }}>
+        <AuthContext.Provider value={{ user, login, logout, refreshUser }}>
             {children}
         </AuthContext.Provider>
     );
