@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import MovieCard from "../MovieCard/MovieCard";
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import * as movieService from '../../services/movieService';
 import { useAuthContext } from "../../hooks/useAuthContenxt";
 
 function Favourites() {
     const [favouriteMovies, setFavouriteMovies] = useState([]);
     const { user } = useAuthContext();
+    let location = useLocation();
 
     useEffect(() => {
         if (user._id !== '') {
@@ -21,12 +22,16 @@ function Favourites() {
                     .catch();
             }
         }
-    }, []);
+    }, [user]);
     return (
         <div className="box">
             <div className="head">
                 <h2>FAVOURITES</h2>
-                <p className="text-right"><Link to="#">See all</Link></p>
+                {!location.pathname.includes('favourites')
+                    ?<p className="text-right"><Link to="/favourites">See all</Link></p>
+                    : null
+                }
+                
             </div>
             <div className="movie-list">
                 {favouriteMovies?.length > 0

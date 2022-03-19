@@ -2,7 +2,7 @@ import Favourites from "../Favourites/Favourites";
 import { useAuthContext } from "../../hooks/useAuthContenxt";
 import { useMovieContext } from "../../hooks/useMovieContext";
 
-import SearchResult from "../SearchResult/SearchResult";
+import SearchResult from "../Search/SearchResult";
 
 function Home() {
     const { user } = useAuthContext();
@@ -12,8 +12,10 @@ function Home() {
             <div className="welcome">
                 <p>Hello {user.username}!</p>
             </div>
-            <Favourites />
-            <SearchResult />
+            {movies.length > 0
+                ? <SearchResult />
+                : <Favourites />
+            }
         </>
     );
 }

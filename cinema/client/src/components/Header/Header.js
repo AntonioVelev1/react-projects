@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useRef } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 import { useAuthContext } from "../../hooks/useAuthContenxt";
 import { useMovieContext } from '../../hooks/useMovieContext';
@@ -9,6 +9,16 @@ import * as movieService from '../../services/movieService';
 function Header() {
     const { user } = useAuthContext();
     const { setResult } = useMovieContext();
+    let location = useLocation();
+    const inputEl = useRef(null);
+
+    useEffect(() => {
+        if(!location.pathname.includes('details')) {
+            inputEl.current.value = '';
+        }
+
+        setResult([]);
+    }, [location])
 
     let guestNavigation = (
         <>
@@ -37,9 +47,10 @@ function Header() {
                     setResult(extractData(res));
                 }
                 else {
-                    setResult({});
+                    setResult([]);
                 }
             });
+            //e.target.elements['search'].value = '';
     }
 
     function extractData(data) {
@@ -53,6 +64,7 @@ function Header() {
             <div id="navigation">
                 <ul>
                     <li><Link to="/">HOME</Link></li>
+                    <li><Link to="/search">SEARCH</Link></li>
                     {user?.email ?
                         userNavigation
                         : guestNavigation
@@ -62,7 +74,7 @@ function Header() {
             <div id="sub-navigation">
                 <div id="search">
                     <form acceptCharset="utf-8" onSubmit={searchHandler}>
-                        <input type="text" name="search" placeholder="Enter search here" id="search-field" className="blink search-field" />
+                        <input ref={inputEl} type="text" name="search" placeholder="Enter search here" id="search-field" className="blink search-field" />
                         <input type="submit" value="Search" className="search-button" />
                     </form>
                 </div>

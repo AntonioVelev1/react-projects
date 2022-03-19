@@ -8,6 +8,7 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Logout from "./components/Logout/Logout";
 import Details from "./components/Details/Details";
+import Search from "./components/Search/Search";
 
 import { AuthProvider } from "./contexts/AuthContext";
 import { MovieProvider } from "./contexts/MovieContext";
@@ -25,6 +26,7 @@ function App() {
               <Routes>
                 <Route path="*" element={<NotFound />} />
                 <Route path="/" element={<Home />} />
+                <Route path="/search" element={<Search />} />
                 <Route path="/details/:movieId" element={<Details />} />
                 <Route element={<PrivateRoute />}>
                   <Route path="/logout" element={<Logout />} />

@@ -242,6 +242,10 @@ h1#logo a {
 	margin: 12px 0 0 auto;
 }
 
+#search #search-page {
+	margin-top: 50px
+}
+
 #search label {
 	float: left;
 	display: inline;
@@ -285,6 +289,7 @@ h1#logo a {
 	width: 980px;
 	padding-top: 14px;
 	padding-bottom: 11px;
+	margin-bottom: 25px;
 }
 
 .box .head h2 {
@@ -293,7 +298,7 @@ h1#logo a {
 }
 
 .box .movie-list {
-	margin-top: 15px;
+	margin-top: 50px;
 }
 
 .box .movie {

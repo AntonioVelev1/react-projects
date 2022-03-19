@@ -8,12 +8,14 @@ function createRate(req, res, next) {
             return Promise.all([
                 cretaedRate,
                 userModel.updateOne({ _id: userId }, { $push: { rates: cretaedRate._id } }, { new: true }),
-                movieModel.updateOne({ _id: movieId }, { $push: { rates: cretaedRate._id } }, { new: true })
             ])
         })
-        .then(([cretaedRate, _u, _m]) => {
+        .then(([cretaedRate, _u]) => {
             if (cretaedRate) {
                 res.status(200).json(cretaedRate);
+            }
+            else {
+                res.status(401).json({ isSuccessfully: false, message: `Not allowed!` });
             }
         })
         .catch(next);
@@ -29,16 +31,15 @@ function getRate(req, res, next) {
 
 
 function updateRate(req, res, next) {
-    const { rateId, rate, userId, movieId } = req.body;
+    const { rateId, rate} = req.body;
 
-    Promise.all([
-        rateModel.findByIdAndUpdate({ _id: rateId }, { rate: rate }, { new: true }),
-        userModel.updateOne({ _id: userId }, { $push: { rates: rateId }, $addToSet: { movies: movieId } }),
-        movieModel.updateOne({ _id: movieId }, { $push: { rates: rateId } })
-    ])
-        .then(([updatedRate, _u, _m]) => {
+    rateModel.findByIdAndUpdate({ _id: rateId }, { rate: rate }, { new: true })
+        .then((updatedRate) => {
             if (updatedRate) {
                 res.status(200).json(updatedRate);
+            }
+            else {
+                res.status(401).json({ isSuccessfully: false, message: `Not allowed!` });
             }
         })
         .catch(next);
@@ -48,13 +49,15 @@ function deleteRate(req, res, next) {
     const { rateId, userId, movieId } = req.body;
 
     return Promise.all([
-        rateModel.findOneAndDelete({ _id: rateId, userId, movieId }),
-        userModel.updateOne({ _id: userId }, { $pull: { rates: rateId } }),
-        movieModel.updateOne({ _id: movieId }, { $pull: { rates: rateId } })
+        rateModel.findOneAndDelete({ _id: rateId }),
+        userModel.updateOne({ _id: userId }, { $pull: { rates: rateId } })
     ])
-        .then(([deletedRate, _u, _m]) => {
+        .then(([deletedRate, _u]) => {
             if (deletedRate) {
                 res.status(200).json(deletedRate);
+            }
+            else {
+                res.status(401).json({ isSuccessfully: false, message: `Not allowed!` });
             }
         })
         .catch(next);

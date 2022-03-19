@@ -5,7 +5,7 @@ export const MovieContext = createContext();
 export const MovieProvider = ({
     children
 }) => {
-    const [movies, setMovies] = useState({});
+    const [movies, setMovies] = useState([]);
 
     const setResult = (recivedMovies) => setMovies(recivedMovies);
 

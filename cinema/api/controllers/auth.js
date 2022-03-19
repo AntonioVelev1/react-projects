@@ -116,7 +116,7 @@ function addToFavourites(req, res, next) {
 function removeFromFavourites(req, res, next) {
     const { userId, movieId } = req.body;
 
-    userModel.findByIdAndUpdate({ _id: userId }, { $pull: { movies: movieId } }, { new: true })
+    userModel.updateOne({ _id: userId }, { $pull: { movies: movieId } }, { new: true })
         .then((user) => {
             if (user) {
                 res.status(200).json({ isSuccessfully: true, message: `Successfully remove to favourites` });
