@@ -46,7 +46,7 @@ function updateRate(req, res, next) {
 }
 
 function deleteRate(req, res, next) {
-    const { rateId, userId, movieId } = req.body;
+    const { rateId, userId } = req.body;
 
     return Promise.all([
         rateModel.findOneAndDelete({ _id: rateId }),

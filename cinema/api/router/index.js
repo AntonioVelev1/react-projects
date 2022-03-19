@@ -1,10 +1,10 @@
 const router = require('express').Router();
 const users = require('./users');
-const movies = require('./movies');
+const notes = require('./notes');
 const rates = require('./rates');
 
 router.use('/users', users);
-router.use('/movies', movies);
+router.use('/notes', notes);
 router.use('/rates', rates);
 
 module.exports = router;

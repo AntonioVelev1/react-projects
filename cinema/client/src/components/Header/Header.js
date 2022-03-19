@@ -10,6 +10,7 @@ function Header() {
     const { user } = useAuthContext();
     const { setResult } = useMovieContext();
     let location = useLocation();
+
     const inputEl = useRef(null);
 
     useEffect(() => {

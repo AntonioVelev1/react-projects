@@ -23,19 +23,26 @@ function Favourites() {
             }
         }
     }, [user]);
+
+    function isOnHome(){
+        return !location.pathname.includes('favourites');
+    }
     return (
         <div className="box">
             <div className="head">
                 <h2>FAVOURITES</h2>
-                {!location.pathname.includes('favourites')
-                    ?<p className="text-right"><Link to="/favourites">See all</Link></p>
+                {isOnHome()
+                    ? <p className="text-right"><Link to="/favourites">See all</Link></p>
                     : null
                 }
-                
             </div>
             <div className="movie-list">
                 {favouriteMovies?.length > 0
-                    ? favouriteMovies.map((x, index) => <MovieCard key={index} movie={x} />)
+                    ? favouriteMovies.map((x, index) => (
+                        isOnHome() ?  
+                        (index < 4 ?  <MovieCard key={index} movie={x} /> : null)
+                        :  <MovieCard key={index} movie={x} />
+                    ))
                     : <p>You have no favourite movies</p>
                 }
             </div>

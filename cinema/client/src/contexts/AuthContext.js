@@ -27,6 +27,8 @@ export const AuthProvider = ({
 
     }, []);
 
+    const hasUser = user._id !== '';
+
     const login = (data) => setUser(data);
 
     const refreshUser = () => {
@@ -47,7 +49,7 @@ export const AuthProvider = ({
     });
 
     return (
-        <AuthContext.Provider value={{ user, login, logout, refreshUser }}>
+        <AuthContext.Provider value={{ user, login, logout, refreshUser, hasUser }}>
             {children}
         </AuthContext.Provider>
     );

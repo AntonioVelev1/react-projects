@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 
-import { } from './Raiting.css';
 import { useAuthContext } from '../../hooks/useAuthContenxt';
 import * as rateService from '../../services/rateService';
 

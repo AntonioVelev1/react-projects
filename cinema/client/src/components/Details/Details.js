@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import BaseRating from "./Raiting";
+import Notes from "./Notes";
+import NotesForm from "./NotesForm";
 import { } from './Details.css';
 import * as movieService from '../../services/movieService';
 import * as authService from '../../services/authService';
@@ -9,7 +11,7 @@ import { useAuthContext } from "../../hooks/useAuthContenxt";
 function Details() {
     const { movieId } = useParams();
     const [movie, setMovie] = useState({});
-    const { user, refreshUser } = useAuthContext();
+    const { user, refreshUser, hasUser } = useAuthContext();
 
     useEffect(() => {
         movieService.getMovie(movieId)
@@ -58,16 +60,24 @@ function Details() {
                 </section>
                 <article>
                     <div className="details-btns">
-                        {user._id !== ''
-                            ? (user?.movies?.includes(movie?.id?.toString())
-                                ? <button className="details-btn remove" onClick={removeFromFavouritesHandler}>Remove from favourites</button>
-                                : <button className="details-btn add" onClick={addToFavouritesHandler}>Add to favourites</button>)
+                        {hasUser
+                            ? <>
+                                { (user?.movies?.includes(movie?.id?.toString())
+                                    ? <button className="details-btn remove" onClick={removeFromFavouritesHandler}>Remove from favourites</button>
+                                    : <button className="details-btn add" onClick={addToFavouritesHandler}>Add to favourites</button>)
+                                }
+                                < BaseRating movie={movie} />
+                                
+                            </>
                             : null
                         }
                     </div>
                 </article>
-            </section>
-            <BaseRating movie={movie} />
+                {hasUser
+                    ? <NotesForm />
+                    : null
+                }
+            </section >
         </>
     );
 }

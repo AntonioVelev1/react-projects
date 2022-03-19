@@ -46,6 +46,7 @@
   display: flex;
   justify-content: center;
   width: 120px;
+  font-size: 15px;
 }
 
 .remove {
@@ -56,10 +57,19 @@
   background-color: #e7b038;
 }
 
+.save {
+  background-color: rgb(99, 179, 99);
+}
+
 .details-edit-btn a {
   color: white;
 
 }
+
+.raiting {
+  margin-left: 40px;
+}
+
 
 .likes {
   font-size: 20px;
