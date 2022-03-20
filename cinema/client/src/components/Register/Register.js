@@ -33,7 +33,7 @@ function Register() {
                 if(res.errors) {
                     navigate('/');
                 } else {
-                    login(data);
+                    login(res);
                     navigate('/');
                 }
             });

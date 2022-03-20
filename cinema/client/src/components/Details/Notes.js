@@ -1,24 +1,16 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-
 function Notes({
     note,
-    updateNoteHandler
+    updateNoteHandler,
+    onDelete
 }) {
-    function deleteHandler(e) {
-        e.preventDefault();
-       // <button type="submit" onClick={deleteHandler}></button>
-    }
-
-
     return (
         <>
             <div>
                 <label>
-                    
                     <button onClick={(e) => updateNoteHandler(e, note)}>{note?.content}</button>
+                    <button onClick={(e) => onDelete(e, note)}><i className="fas fa-trash-alt"></i></button>
                 </label>
-            
+
             </div>
         </>
     );

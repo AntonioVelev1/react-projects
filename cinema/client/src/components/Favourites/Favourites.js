@@ -10,23 +10,30 @@ function Favourites() {
     let location = useLocation();
 
     useEffect(() => {
-        if (user._id !== '') {
-            for (const movieId of user.movies) {
+        if (canGetMovies()) {
+            for (const movieId of user?.movies) {
                 movieService.getMovie(movieId)
                     .then(movie => {
-                        setFavouriteMovies((state) => [
-                            ...state,
-                            movie
-                        ]);
+                        if (movie) {
+                            setFavouriteMovies((state) => [
+                                ...state,
+                                movie
+                            ]);
+                        }
                     })
                     .catch();
             }
         }
     }, [user]);
 
-    function isOnHome(){
+    function isOnHome() {
         return !location.pathname.includes('favourites');
     }
+
+    function canGetMovies() {
+        return user._id !== '' && user?.movies !== undefined && user?.movies?.length > 0
+    }
+
     return (
         <div className="box">
             <div className="head">
@@ -39,9 +46,9 @@ function Favourites() {
             <div className="movie-list">
                 {favouriteMovies?.length > 0
                     ? favouriteMovies.map((x, index) => (
-                        isOnHome() ?  
-                        (index < 4 ?  <MovieCard key={index} movie={x} /> : null)
-                        :  <MovieCard key={index} movie={x} />
+                        isOnHome() ?
+                            (index < 4 ? <MovieCard key={index} movie={x} /> : null)
+                            : <MovieCard key={index} movie={x} />
                     ))
                     : <p>You have no favourite movies</p>
                 }

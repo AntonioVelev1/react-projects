@@ -59,7 +59,7 @@ export default function BasicRating({
     function deleteRateHandler(e) {
         e.preventDefault();
 
-        rateService.deleteRate({ rateId: dbRate._id, userId: user._id, movieId: movie.id })
+        rateService.deleteRate({ rateId: dbRate._id, userId: user._id })
             .then((res) => {
                 if (res !== undefined) {
                     setRate(0);

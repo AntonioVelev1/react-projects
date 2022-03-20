@@ -44,7 +44,7 @@ export const createNote = async (data) => {
     }
 }
 
-export const getAll = async (userId) => {
+export const getAll = async (data) => {
     try {
         let res = await fetch(`${API_URL}/all`, {
             method: 'POST',
@@ -52,7 +52,7 @@ export const getAll = async (userId) => {
             headers: {
                 'content-type': 'application/json',
             },
-            body: JSON.stringify({ userId })
+            body: JSON.stringify(data)
         });
 
         let result = await res.json();

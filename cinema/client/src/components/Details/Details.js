@@ -16,9 +16,17 @@ function Details() {
     useEffect(() => {
         movieService.getMovie(movieId)
             .then((res) => {
-                setMovie(res);
+                if(res.id){
+                    formatDescription(res);
+                    setMovie(res);
+                }
             });
     }, []);
+
+    function formatDescription(res) {
+        res.summary = res.summary?.replace('<p>', '');
+        res.summary = res.summary?.replace('</p>', '');
+    }
 
     function addToFavouritesHandler(e) {
         e.preventDefault();
@@ -62,12 +70,12 @@ function Details() {
                     <div className="details-btns">
                         {hasUser
                             ? <>
-                                { (user?.movies?.includes(movie?.id?.toString())
+                                {(user?.movies?.includes(movie?.id?.toString())
                                     ? <button className="details-btn remove" onClick={removeFromFavouritesHandler}>Remove from favourites</button>
                                     : <button className="details-btn add" onClick={addToFavouritesHandler}>Add to favourites</button>)
                                 }
                                 < BaseRating movie={movie} />
-                                
+
                             </>
                             : null
                         }

@@ -22,10 +22,9 @@ function createNote(req, res, next) {
 }
 
 function getAll(req, res, next) {
-    const { userId } = req.body;
+    const { userId, movieId } = req.body;
 
-    noteModel.find()
-        .populate('userId')
+    noteModel.find({ userId: userId, movieId: movieId })
         .then(notes => res.json(notes))
         .catch(next);
 }

@@ -8,15 +8,16 @@ import Notes from "./Notes";
 function NotesForm() {
     const [notes, setNotes] = useState([]);
     const [note, setNote] = useState({});
+    const [input, setInput] = useState('');
     const { movieId } = useParams();
     const { user } = useAuthContext();
 
     useEffect(() => {
-        noteService.getAll(user?._id)
+        noteService.getAll({ userId: user?._id, movieId: movieId })
             .then((res) => {
                 setNotes(res);
             })
-    }, []);
+    }, [note]);
 
     function addNoteHanlder(e) {
         e.preventDefault();
@@ -24,34 +25,48 @@ function NotesForm() {
         let formData = new FormData(e.currentTarget);
         let content = formData.get('comment');
 
-        e.currentTarget.children[0].children[0].innerHTML = '';
 
-        if (note) {
+        if (hasNote()) {
             noteService.updateNote({ content: content, noteId: note._id })
                 .then((res) => {
-                    setNote({});
+                    setNote(res);
                 });
         }
         else {
             noteService.createNote({ content: content, userId: user._id, movieId: movieId })
                 .then((res) => {
-                    setNotes((state) => [
-                        ...state,
-                        res
-                    ]);
+                    if (res) {
+                        setNotes((notes) => [
+                            ...notes,
+                            res
+                        ]);
+                    }
                 });
         }
+        setInput('');
+    }
+
+    function hasNote() {
+        return Object.keys(note).length > 0 && note.constructor === Object
     }
 
     function updateNoteHandler(e, data) {
         setNote(data);
+        setInput(data.content);
     }
-    function change() {
-        if (Object.keys(note).length === 0 && note.constructor === Object) {
-            return '';
-        } else {
-            return note?.content;
-        }
+
+    function onDelete(e, data) {
+        noteService.deleteNote({ noteId: data._id, userId: user._id })
+            .then((res) => {
+                if (res) {
+                   setNote({});
+                }
+            });
+    }
+
+    function handleChange(event) {
+        const value = event.target.value;
+        setInput(value);
     }
 
     return (
@@ -61,16 +76,19 @@ function NotesForm() {
                     <form id="editForm" onSubmit={addNoteHanlder}>
                         <div className="input-group">
                             <textarea className="input-error" placeholder="Comment"
-                                rows="5" cols="100" value={change()} type="text" name="comment" id="comment"></textarea>
+                                rows="5" cols="100" value={input} onChange={handleChange} type="text" name="comment" id="comment"></textarea>
                             <button type="submit" className="details-btn save">Save</button>
                         </div>
                     </form >
                 </div >
             </div >
             <div>
-                <p>Notes</p>
-                {
-                    notes?.map((x) => <Notes note={x} updateNoteHandler={updateNoteHandler} key={x._id} />)
+
+                {notes?.length > 0
+                    ? <><p>Notes</p>
+                        {notes?.map((x) => <Notes note={x} onDelete={onDelete} updateNoteHandler={updateNoteHandler} key={x?._id} />)}
+                    </>
+                    : <p>No notes</p>
                 }
             </div>
         </div >
