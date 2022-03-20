@@ -9,9 +9,11 @@ function Logout () {
 
     useEffect(() => {
         authService.logout()
-            .then(() => {
-                logout();
-                navigate('/login');
+            .then((res) => {
+                if(res){
+                    logout();
+                    navigate('/login');
+                }
             });
     }, []);
     

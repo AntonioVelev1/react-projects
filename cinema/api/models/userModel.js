@@ -9,12 +9,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: false,
-        //todo
     },
     username: {
         type: String,
         required: true,
-        //todo
         unique: false,
         minlength: [5, 'Username should be at least 5 characters'],
         validate: {

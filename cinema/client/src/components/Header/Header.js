@@ -51,7 +51,6 @@ function Header() {
                     setResult([]);
                 }
             });
-            //e.target.elements['search'].value = '';
     }
 
     function extractData(data) {

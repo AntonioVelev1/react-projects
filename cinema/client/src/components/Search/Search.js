@@ -31,11 +31,11 @@ function Search() {
 
     return (
         <div className="box">
-            <div className="head">
+            <div className="head search-head">
                 <h2>Search</h2>
             </div>
-            <div id="search">
-                <div id="search-page">
+            <div className="search-page">
+                <div id="search">
                     <form acceptCharset="utf-8" onSubmit={searchHandler}>
                         <input type="text" name="search" placeholder="Enter search here" id="search-field" className="blink search-field" />
                         <input type="submit" value="Search" className="search-button" />

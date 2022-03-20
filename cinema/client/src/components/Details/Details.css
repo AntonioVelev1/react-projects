@@ -79,3 +79,14 @@
  i {
    font-size: 12px;
 }
+
+.notes-content{
+  word-break: break-all;
+  margin: 3em;
+  
+}
+.notes{
+  display:  flex;
+  width: 200px;
+  word-break: break-all;
+}

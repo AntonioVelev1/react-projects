@@ -5,12 +5,22 @@ import { useAuthContext } from "../../hooks/useAuthContenxt";
 
 import Notes from "./Notes";
 
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { noteSchema } from '../../validatons/NotesValidation';
+
 function NotesForm() {
     const [notes, setNotes] = useState([]);
     const [note, setNote] = useState({});
     const [input, setInput] = useState('');
+
     const { movieId } = useParams();
     const { user } = useAuthContext();
+
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        mode: "onBlur",
+        resolver: yupResolver(noteSchema),
+    });
 
     useEffect(() => {
         noteService.getAll({ userId: user?._id, movieId: movieId })
@@ -19,11 +29,10 @@ function NotesForm() {
             })
     }, [note]);
 
-    function addNoteHanlder(e) {
+    function addNoteHanlder(data, e) {
         e.preventDefault();
 
-        let formData = new FormData(e.currentTarget);
-        let content = formData.get('comment');
+        let content = data.comment;
 
 
         if (hasNote()) {
@@ -73,10 +82,11 @@ function NotesForm() {
         <div className="comment">
             <div className="comment-text">
                 <div>
-                    <form id="editForm" onSubmit={addNoteHanlder}>
+                    <form id="editForm" onSubmit={handleSubmit(addNoteHanlder)}>
                         <div className="input-group">
-                            <textarea className="input-error" placeholder="Comment"
+                            <textarea className="input-error" placeholder="Comment" {...register("comment")}
                                 rows="5" cols="100" value={input} onChange={handleChange} type="text" name="comment" id="comment"></textarea>
+                                {errors.comment?.message && <p className="validation-error">{errors.comment?.message}</p>}
                             <button type="submit" className="details-btn save">Save</button>
                         </div>
                     </form >

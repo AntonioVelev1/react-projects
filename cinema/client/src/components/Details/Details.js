@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import BaseRating from "./Raiting";
-import Notes from "./Notes";
 import NotesForm from "./NotesForm";
 import { } from './Details.css';
 import * as movieService from '../../services/movieService';
